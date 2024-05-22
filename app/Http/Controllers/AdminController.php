@@ -12,7 +12,6 @@ class AdminController extends Controller
      */
     public function login()
     {
-        //
         return view('admin.login');
     }
 
@@ -21,7 +20,6 @@ class AdminController extends Controller
      */
     public function register()
     {
-        //
         return view('admin.register');
     }
     
@@ -31,6 +29,7 @@ class AdminController extends Controller
     public function index()
     {
         //
+        return view('admin.index');
     }
 
     /**
