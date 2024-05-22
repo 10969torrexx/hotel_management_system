@@ -12,7 +12,7 @@ class Rooms extends Model
         'number',
         'name',
         'description',
-        'img',
+        'file_path',
         'type',
         'price'
     ];

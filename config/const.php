@@ -15,5 +15,12 @@
             'Connecting room',
             'Deluxe room',
             'Presidential room',
-        ]
+        ],
+        'room_status' => [
+            'Available',
+            'Booked',
+            'Maintenance',
+            'Cleaning',
+            'Out of service'
+        ],
     ];
