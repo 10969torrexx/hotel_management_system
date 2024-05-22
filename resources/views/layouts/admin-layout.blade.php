@@ -86,7 +86,7 @@
                     </a>
                 <ul class="menu-sub">
                     <li class="menu-item">
-                    <a href="layouts-without-menu.html" class="menu-link">
+                    <a href="{{ route('roomsIndex') }}" class="menu-link">
                         <div data-i18n="Without menu">View</div>
                     </a>
                     </li>
