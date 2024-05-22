@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GoogleSignInController;
 use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
@@ -17,6 +18,12 @@ Auth::routes();
     Route::get('/keto', function(){
         return view('keto.index');
     });
+
+/**
+ * TODO: handling google login
+ */
+    Route::post('/google/signin', [GoogleSignInController::class, 'store'])->name('googleSignIn');
+    
 
 /**
  * TODO: setting up the routes for the user side

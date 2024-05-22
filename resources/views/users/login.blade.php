@@ -1,17 +1,4 @@
 <!DOCTYPE html>
-
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
   lang="en"
   class="light-style customizer-hide"
@@ -62,6 +49,15 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+     <!-- CSRF Token -->
+     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Include Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <!-- Include jQuery (required for Toastr) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
   </head>
 
   <body>
@@ -135,8 +131,11 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Sneat! 👋</h4>
-              <p class="mb-4">Please sign-in to your account and start the adventure</p>
+              <h4 class="mb-2">Login</h4>
+              <div class="mt-2 text-center">
+                <div id="g_id_onload" data-client_id="{{ env('GOOGLE_CLIENT_ID') }}" data-callback="onSignIn"></div>
+                <div class="g_id_signin form-control" data-type="standard"></div>
+              </div>
 
               <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
                 <div class="mb-3">
@@ -223,5 +222,52 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src = "https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function decodeJwtResponse(token){
+            let base64url = token.split('.')[1];
+            let base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
+            let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) { 
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+    
+        window.onSignIn = googleUser =>{
+            var user = decodeJwtResponse(googleUser.credential);
+            if(user){
+                $.ajaxSetup({
+                    headers: {  'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content') }
+                });
+                $.ajax({
+                    url: `{{ route('googleSignIn') }}`,
+                    method: 'POST',
+                    data: {
+                        email: user.email,
+                        name: user.name,
+                        picture: user.picture
+                    },
+                    beforeSend: function(){
+                        $('#btnLogin').html("REDIRECTING...").prop("disabled", true);
+                    },
+                    success:function(response){
+                        if(response.status == 200) {
+                          toastr.success(`${response.message}`, 'Success!');
+                          $('#btnLogin').html("Login").prop("disabled", false);
+                          window.location.href ="/home";
+                        }
+                        if (response.status == 300) {
+                            $('#btnLogin').html("Login").prop("disabled", false);
+                            toastr.error(response.message, 'Error!');
+                        }
+                    },
+                    error:function(xhr, status, error){
+                        alert(xhr.responseJSON.message);
+                    }
+                });
+            }
+        }
+
+    </script>
   </body>
 </html>
