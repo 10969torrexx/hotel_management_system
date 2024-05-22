@@ -36,4 +36,4 @@ use App\Http\Controllers\AdminController;
  * TODO: setting up the routes for the admin side
  */
     Route::get('/admin', [AdminController::class, 'login'])->name('adminLogin');
-    Route::get('/admin/register', [AdminController::class, 'register'])->name('adminLogin');
+    Route::get('/admin/register', [AdminController::class, 'register'])->name('adminRegister');
