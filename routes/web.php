@@ -29,8 +29,14 @@ Auth::routes();
  * TODO: handling email routes
  */
     Route::get('/email/{email}', [EmailController::class, 'index'])->name('emailIndex');
-    Route::post('/email/verify', [EmailController::class, 'index'])->name('emailVerify');
 
+/**
+ * TODO: creating throttle or rate limetter
+ */
+    Route::middleware(['throttle:5,1'])->group(function () {
+        Route::post('/email/verify', [EmailController::class, 'verify'])->name('emailVerify');
+        Route::post('/login', [LoginController::class, 'login'])->name('login');
+    });
 /**
  * TODO: setting up the routes for the user side
  */

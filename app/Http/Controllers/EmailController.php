@@ -22,11 +22,11 @@ class EmailController extends Controller
         if(!$ifEmailExist){
             // Check if OTP already exists in session
             if (!session()->has('otp')) {
-                $otp = mt_rand(100000, 999999);
+                $oneTimePassword = mt_rand(100000, 999999);
                 session(['otp' => $otp]); // Store OTP in session
         
                 $emailOtp = OneTimePassword::create([
-                    'otp' => $otp,
+                    'one_time_password' => $oneTimePassword,
                     'email' => $email
                 ]);
         
@@ -46,7 +46,36 @@ class EmailController extends Controller
      */
     public function verify(Request $request)
     {
-        //
+        $request->validate([
+            'otp' => 'required'
+        ]);
+        $otp = $request->otp;
+        $email = $request->email;
+        $emailOtp = OneTimePassword::where('email', $email)->first();
+        if ($emailOtp->one_time_password == $otp) {
+            $user = User::where('email', $email)->first();
+            if(!$user){
+                $user = User::create([
+                    'email' => $email,
+                    'name' => Session::get('googleUser')['name'],
+                    'picture' => !empty(Session::get('googleUser')['picture']) ? Session::get('googleUser')['picture'] : null,
+                    'role' => !empty(Session::get('googleUser')['role']) ? Session::get('googleUser')['role'] : 'user',
+                    'password' => Hash::make(!empty(Session::get('googleUser')['password']) ? Session::get('googleUser')['password'] : 'ExampleString')
+                ]);
+            }
+            OneTimePassword::where('email', $email)->delete();
+            Auth::login($user);
+            return response()->json([
+                'status' => 200, // 'error
+                'message' => 'OTP verified successfully'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 500, // 'error
+                'message' => 'Invalid OTP',
+                'request' => $request->all()
+            ]);
+        }
     }
 
     /**
