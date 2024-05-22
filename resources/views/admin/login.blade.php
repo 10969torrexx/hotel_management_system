@@ -182,7 +182,7 @@
 
               <p class="text-center">
                 <span>New on our platform?</span>
-                <a href="{{ route('usersRegister') }}">
+                <a href="{{ route('adminRegister') }}">
                   <span>Create an account</span>
                 </a>
               </p>
