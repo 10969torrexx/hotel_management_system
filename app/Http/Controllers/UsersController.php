@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -24,10 +25,27 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function confirmLogin(Request $request)
     {
-        //
+        $request->validate([
+            'email' => ['required'],
+            'password' => ['required']
+        ]);
+        $user = User::where('email', $request->email)->first();
+        if ($user && password_verify($request->password, $user->password)) {
+            Auth::login($user);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Login successful',
+                'account' => $user
+            ]);
+        }
+        return response()->json([
+            'status' => 300,
+            'message' => 'Invalid email or password'
+        ]);
     }
+   
 
     /**
      * Store a newly created resource in storage.
