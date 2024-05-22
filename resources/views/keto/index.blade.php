@@ -8,7 +8,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>keto</title>
+      <title>Home Page</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -25,9 +25,6 @@
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
    </head>
    <!-- body -->
    <body class="main-layout">
@@ -117,15 +114,15 @@
             </ol>
             <div class="carousel-inner">
                <div class="carousel-item active">
-                  <img class="first-slide" src="/images/banner1.jpg" alt="First slide">
+                  <img class="first-slide col-12" src="/images/banner1.jpg" alt="First slide">
                   <div class="container">
                   </div>
                </div>
                <div class="carousel-item">
-                  <img class="second-slide" src="/images/banner2.jpg" alt="Second slide">
+                  <img class="second-slide col-12" src="/images/banner2.jpg" alt="Second slide">
                </div>
                <div class="carousel-item">
-                  <img class="third-slide" src="/images/banner3.jpg" alt="Third slide">
+                  <img class="third-slide col-12" src="/images/banner3.jpg" alt="Third slide">
                </div>
             </div>
             <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
@@ -136,34 +133,6 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
             </a>
-         </div>
-         <div class="booking_ocline">
-            <div class="container">
-               <div class="row">
-                  <div class="col-md-5">
-                     <div class="book_room">
-                        <h1>Book a Room Online</h1>
-                        <form class="book_now">
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <span>Arrival</span>
-                                 <img class="date_cua" src="/images/date.png">
-                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="dd/mm/yyyy">
-                              </div>
-                              <div class="col-md-12">
-                                 <span>Departure</span>
-                                 <img class="date_cua" src="/images/date.png">
-                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="dd/mm/yyyy">
-                              </div>
-                              <div class="col-md-12">
-                                 <button class="book_btn">Book Now</button>
-                              </div>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>
-            </div>
          </div>
       </section>
       <!-- end banner -->
@@ -411,7 +380,7 @@
                <div class="col-md-6">
                   <div class="map_main">
                      <div class="map-responsive">
-                        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France" width="600" height="400" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.424976338424!2d124.97941337586758!3d10.387781589738365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x330711cfc19de329%3A0x12b32cbc360a640d!2sGmb%20Arte%20Hotel!5e0!3m2!1sen!2sph!4v1716394032055!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>   
                      </div>
                   </div>
                </div>
