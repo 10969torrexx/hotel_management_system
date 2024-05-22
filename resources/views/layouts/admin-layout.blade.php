@@ -81,7 +81,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                        <i class="menu-icon tf-icons bx bx-layout"></i>
                         <div data-i18n="Account Settings">Room Management</div>
                     </a>
                 <ul class="menu-sub">
