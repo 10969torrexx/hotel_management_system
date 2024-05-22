@@ -89,8 +89,8 @@
                                     <td>{{ $item->number }}</td>
                                     <td class="text-wrap">{{ $item->description }}</td>
                                     <td><img src="/{{ $item->file_path }}" alt="" height="100"></td>
-                                    <td>{{ config('const.room_type.'.($item->type) -1 ) }}</td>
-                                    <td>{{ config('const.room_status.' . $item->status) }}</td>
+                                    <td>{{ ucfirst(config('const.room_type.'.($item->type) )) }}</td>
+                                    <td>{{ ucfirst(config('const.room_status.' . $item->status)) }}</td>
                                     <td>{{ date('M, d, Y', strtotime($item->created_at)) }}</td>
                                     <th>
                                         <div class="dropdown">
