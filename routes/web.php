@@ -3,22 +3,25 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 
-Route::get('/', function () {
-    return view('keto.index');
-});
+/**
+ * TODO: these are simply for testing purposes
+ */
+    Route::get('/sneat', function(){
+        return view('sneat.index');
+    });
 
-Route::get('/sneat', function(){
-    return view('sneat.index');
-});
-
-Route::get('/keto', function(){
-    return view('keto.index');
-});
+    Route::get('/keto', function(){
+        return view('keto.index');
+    });
 
 /**
  * TODO: setting up the routes for the user side
  */
+    Route::get('/', function () {
+        return view('keto.index');
+    });
     Route::get('/user', [UsersController::class, 'login'])->name('usersLogin');
     Route::get('/user/register', [UsersController::class, 'register'])->name('usersRegister');
     
@@ -29,3 +32,8 @@ Route::get('/keto', function(){
     Route::get('/user/blog', [HomeController::class, 'blog'])->name('usersBlog');
     Route::get('/user/contact', [HomeController::class, 'contact_us'])->name('usersContact');
     
+/**
+ * TODO: setting up the routes for the admin side
+ */
+    Route::get('/admin', [AdminController::class, 'login'])->name('adminLogin');
+    Route::get('/admin/register', [AdminController::class, 'register'])->name('adminLogin');
