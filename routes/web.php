@@ -60,6 +60,9 @@ Auth::routes();
     Route::get('/admin', [AdminController::class, 'login'])->name('adminLogin');
     Route::get('/admin/register', [AdminController::class, 'register'])->name('adminRegister');
     
+    Route::get('/admin/home', function() {
+        return 'admin home';
+    })->name('adminHome');
     // Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     //     Route::get('/', [UsersController::class, 'login'])->name('usersLogin');
     //     Route::get('/register', [UsersController::class, 'register'])->name('usersRegister');

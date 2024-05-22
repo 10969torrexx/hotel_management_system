@@ -189,10 +189,11 @@
                     },
                     success:function(response){
                         if(response.status == 200) {
+                          var redirectTo = response.account.role == 'admin' ? "{{ route('adminHome') }}" : "{{ route('usersHome') }}";
                           toastr.success(`${response.message}`, 'Success!');
                           $('#btnLogin').html("Login").prop("disabled", false);
                           setTimeout(() => {
-                            window.location.href = "{{ route('usersHome') }}";
+                            window.location.href = redirectTo;
                           }, 2000);
                         }
                         if (response.status == 300) {
