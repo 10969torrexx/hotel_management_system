@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 class GoogleSignInController extends Controller
 {
     /**
@@ -24,7 +26,7 @@ class GoogleSignInController extends Controller
         if (!$ifUserExists) {
             return response()->json(array(
                 'status' => 300,
-                'message' => 'User not found!',
+                'message' => 'User does not exist!',
                 'account' => $request->all()
             ));
         } 

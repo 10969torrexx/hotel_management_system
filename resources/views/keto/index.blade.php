@@ -13,15 +13,15 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- bootstrap css -->
-      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/bootstrap.min.css">
       <!-- style css -->
-      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="/css/style.css">
       <!-- Responsive-->
-      <link rel="stylesheet" href="css/responsive.css">
+      <link rel="stylesheet" href="/css/responsive.css">
       <!-- fevicon -->
-      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <link rel="icon" href="/images/fevicon.png" type="image/gif" />
       <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css">
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
@@ -33,7 +33,7 @@
    <body class="main-layout">
       <!-- loader  -->
       <div class="loader_bg">
-         <div class="loader"><img src="images/loading.gif" alt="#"/></div>
+         <div class="loader"><img src="/images/loading.gif" alt="#"/></div>
       </div>
       <!-- end loader -->
       <!-- header -->
@@ -46,7 +46,7 @@
                      <div class="full">
                         <div class="center-desk">
                            <div class="logo">
-                              <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+                              <a href="{{ route('usersHome') }}"><img src="{{ asset('assets/img/icons/logo.jpg') }}" style="height: 60px !important"/></a>
                            </div>
                         </div>
                      </div>
@@ -81,8 +81,20 @@
                                     Users
                                  </a>
                                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                     <a class="dropdown-item" href="{{ route('usersLogin') }}">Login</a>
-                                     <a class="dropdown-item" href="{{ route('usersRegister') }}">Register</a>
+                                    @guest
+                                       <a class="dropdown-item" href="{{ route('usersLogin') }}">Login</a>
+                                       <a class="dropdown-item" href="{{ route('usersRegister') }}">Register</a>
+                                    @else
+                                       <a class="dropdown-item" href="{{ route('logout') }}"
+                                          onclick="event.preventDefault();
+                                                      document.getElementById('logout-form').submit();">
+                                          {{ __('Logout') }}
+                                       </a>
+
+                                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                          @csrf
+                                       </form>
+                                    @endguest
                                  </div>
                              </li>
                            </ul>
@@ -105,15 +117,15 @@
             </ol>
             <div class="carousel-inner">
                <div class="carousel-item active">
-                  <img class="first-slide" src="images/banner1.jpg" alt="First slide">
+                  <img class="first-slide" src="/images/banner1.jpg" alt="First slide">
                   <div class="container">
                   </div>
                </div>
                <div class="carousel-item">
-                  <img class="second-slide" src="images/banner2.jpg" alt="Second slide">
+                  <img class="second-slide" src="/images/banner2.jpg" alt="Second slide">
                </div>
                <div class="carousel-item">
-                  <img class="third-slide" src="images/banner3.jpg" alt="Third slide">
+                  <img class="third-slide" src="/images/banner3.jpg" alt="Third slide">
                </div>
             </div>
             <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
@@ -135,12 +147,12 @@
                            <div class="row">
                               <div class="col-md-12">
                                  <span>Arrival</span>
-                                 <img class="date_cua" src="images/date.png">
+                                 <img class="date_cua" src="/images/date.png">
                                  <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="dd/mm/yyyy">
                               </div>
                               <div class="col-md-12">
                                  <span>Departure</span>
-                                 <img class="date_cua" src="images/date.png">
+                                 <img class="date_cua" src="/images/date.png">
                                  <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="dd/mm/yyyy">
                               </div>
                               <div class="col-md-12">
@@ -168,7 +180,7 @@
                </div>
                <div class="col-md-7">
                   <div class="about_img">
-                     <figure><img src="images/about.png" alt="#"/></figure>
+                     <figure><img src="/images/about.png" alt="#"/></figure>
                   </div>
                </div>
             </div>
@@ -190,7 +202,7 @@
                <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
                      <div class="room_img">
-                        <figure><img src="images/room1.jpg" alt="#"/></figure>
+                        <figure><img src="/images/room1.jpg" alt="#"/></figure>
                      </div>
                      <div class="bed_room">
                         <h3>Bed Room</h3>
@@ -201,7 +213,7 @@
                <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
                      <div class="room_img">
-                        <figure><img src="images/room2.jpg" alt="#"/></figure>
+                        <figure><img src="/images/room2.jpg" alt="#"/></figure>
                      </div>
                      <div class="bed_room">
                         <h3>Bed Room</h3>
@@ -212,7 +224,7 @@
                <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
                      <div class="room_img">
-                        <figure><img src="images/room3.jpg" alt="#"/></figure>
+                        <figure><img src="/images/room3.jpg" alt="#"/></figure>
                      </div>
                      <div class="bed_room">
                         <h3>Bed Room</h3>
@@ -223,7 +235,7 @@
                <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
                      <div class="room_img">
-                        <figure><img src="images/room4.jpg" alt="#"/></figure>
+                        <figure><img src="/images/room4.jpg" alt="#"/></figure>
                      </div>
                      <div class="bed_room">
                         <h3>Bed Room</h3>
@@ -234,7 +246,7 @@
                <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
                      <div class="room_img">
-                        <figure><img src="images/room5.jpg" alt="#"/></figure>
+                        <figure><img src="/images/room5.jpg" alt="#"/></figure>
                      </div>
                      <div class="bed_room">
                         <h3>Bed Room</h3>
@@ -245,7 +257,7 @@
                <div class="col-md-4 col-sm-6">
                   <div id="serv_hover"  class="room">
                      <div class="room_img">
-                        <figure><img src="images/room6.jpg" alt="#"/></figure>
+                        <figure><img src="/images/room6.jpg" alt="#"/></figure>
                      </div>
                      <div class="bed_room">
                         <h3>Bed Room</h3>
@@ -270,42 +282,42 @@
             <div class="row">
                <div class="col-md-3 col-sm-6">
                   <div class="gallery_img">
-                     <figure><img src="images/gallery1.jpg" alt="#"/></figure>
+                     <figure><img src="/images/gallery1.jpg" alt="#"/></figure>
                   </div>
                </div>
                <div class="col-md-3 col-sm-6">
                   <div class="gallery_img">
-                     <figure><img src="images/gallery2.jpg" alt="#"/></figure>
+                     <figure><img src="/images/gallery2.jpg" alt="#"/></figure>
                   </div>
                </div>
                <div class="col-md-3 col-sm-6">
                   <div class="gallery_img">
-                     <figure><img src="images/gallery3.jpg" alt="#"/></figure>
+                     <figure><img src="/images/gallery3.jpg" alt="#"/></figure>
                   </div>
                </div>
                <div class="col-md-3 col-sm-6">
                   <div class="gallery_img">
-                     <figure><img src="images/gallery4.jpg" alt="#"/></figure>
+                     <figure><img src="/images/gallery4.jpg" alt="#"/></figure>
                   </div>
                </div>
                <div class="col-md-3 col-sm-6">
                   <div class="gallery_img">
-                     <figure><img src="images/gallery5.jpg" alt="#"/></figure>
+                     <figure><img src="/images/gallery5.jpg" alt="#"/></figure>
                   </div>
                </div>
                <div class="col-md-3 col-sm-6">
                   <div class="gallery_img">
-                     <figure><img src="images/gallery6.jpg" alt="#"/></figure>
+                     <figure><img src="/images/gallery6.jpg" alt="#"/></figure>
                   </div>
                </div>
                <div class="col-md-3 col-sm-6">
                   <div class="gallery_img">
-                     <figure><img src="images/gallery7.jpg" alt="#"/></figure>
+                     <figure><img src="/images/gallery7.jpg" alt="#"/></figure>
                   </div>
                </div>
                <div class="col-md-3 col-sm-6">
                   <div class="gallery_img">
-                     <figure><img src="images/gallery8.jpg" alt="#"/></figure>
+                     <figure><img src="/images/gallery8.jpg" alt="#"/></figure>
                   </div>
                </div>
             </div>
@@ -327,7 +339,7 @@
                <div class="col-md-4">
                   <div class="blog_box">
                      <div class="blog_img">
-                        <figure><img src="images/blog1.jpg" alt="#"/></figure>
+                        <figure><img src="/images/blog1.jpg" alt="#"/></figure>
                      </div>
                      <div class="blog_room">
                         <h3>Bed Room</h3>
@@ -339,7 +351,7 @@
                <div class="col-md-4">
                   <div class="blog_box">
                      <div class="blog_img">
-                        <figure><img src="images/blog2.jpg" alt="#"/></figure>
+                        <figure><img src="/images/blog2.jpg" alt="#"/></figure>
                      </div>
                      <div class="blog_room">
                         <h3>Bed Room</h3>
@@ -351,7 +363,7 @@
                <div class="col-md-4">
                   <div class="blog_box">
                      <div class="blog_img">
-                        <figure><img src="images/blog3.jpg" alt="#"/></figure>
+                        <figure><img src="/images/blog3.jpg" alt="#"/></figure>
                      </div>
                      <div class="blog_room">
                         <h3>Bed Room</h3>
@@ -465,11 +477,11 @@
       </footer>
       <!-- end footer -->
       <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="/js/jquery.min.js"></script>
+      <script src="/js/bootstrap.bundle.min.js"></script>
+      <script src="/js/jquery-3.0.0.min.js"></script>
       <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
+      <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="/js/custom.js"></script>
    </body>
 </html>
