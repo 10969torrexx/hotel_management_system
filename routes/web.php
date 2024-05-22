@@ -68,6 +68,7 @@ Auth::routes();
         Route::get('/rooms', [RoomsController::class, 'index'])->name('roomsIndex');
         Route::get('/rooms/add', [RoomsController::class, 'add'])->name('roomsAdd');
         Route::post('/rooms/store', [RoomsController::class, 'store'])->name('roomsStore');
+        Route::get('/rooms/delete/{id}', [RoomsController::class, 'destroy'])->name('roomsDelete');
         // Route::get('/rooms', [HomeController::class, 'our_room'])->name('usersRooms');
         // Route::get('/gallery', [HomeController::class, 'gallery'])->name('usersGallery');
         // Route::get('/blog', [HomeController::class, 'blog'])->name('usersBlog');

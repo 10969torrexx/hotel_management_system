@@ -21,7 +21,7 @@ class RoomsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'number' => ['required', 'string', 'max:255'],
+            'number' => ['required', 'string', 'max:255', 'unique:rooms'],
             'description' => ['required', 'string', 'max:255'],
             'img' => ['required', 'mimes:jpeg,jpg,pdf'],
             'type' => ['required', 'string', 'max:255'],
@@ -60,6 +60,7 @@ class RoomsController extends Controller
 
     public function destroy($id)
     {
-
+        $room = Rooms::where('id', $id)->delete();
+        return redirect(route('roomsIndex'))->with('success', 'Room deleted successfully');
     }
 }
