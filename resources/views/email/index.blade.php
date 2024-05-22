@@ -27,8 +27,9 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Register</title>
-
+    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="" />
 
     <!-- Favicon -->
@@ -52,7 +53,7 @@
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Page CSS -->
     <!-- Page -->
     <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
@@ -61,7 +62,9 @@
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <!--? Config:  test commit.  -->
     <script src="../assets/js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <body>
@@ -70,68 +73,23 @@
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-          <!-- Register Card -->
-          <div class="card">
-            <div class="card-body">
-              <!-- Logo -->
-               <!-- Logo -->
-                <div class="mb-3 row justify-content-center">
-                  <img src="{{ asset('assets/img/icons/logo.jpg') }}" app-brand-logoalt="" class="col-6">
-                </div>
-                <div class="app-brand justify-content-center">
-                    <h2><strong>Register</strong></h2>
-                </div>
-              <form id="formAuthentication" class="mb-3" action="{{ route('usersStore') }}" method="POST"> @csrf
-                <div class="mb-3">
-                  <label for="username" class="form-label">Name</label>
-                  <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                  @error('name')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-                </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-                  @error('email')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-                </div>
-                <div class="mb-3 form-password-toggle">
-                  <label class="form-label" for="password">Password</label>
-                  <div class="input-group input-group-merge">
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+            <div class="card mb-4">
+              <h5 class="card-header">Email OTP</h5>
+                <div class="card-body">
+                  <div id="defaultFormControlHelp" class="form-text mb-3 ">
+                    We've sent an OTP to your email <strong>({{ $email }})</strong>. Please enter the OTP to verify your email.
+                    Please check the spam folder if you don't find the email in your inbox.
                   </div>
+                  <label for="defaultFormControlInput" class="form-label">OTP (One Time Password)</label>
+                  <input type="text" class="form-control mb-3" id="email_otp" placeholder="" aria-describedby="defaultFormControlHelp">
+                  <button class="btn btn-primary" id="submit_otp_button">Submit</button>
                 </div>
-                <div class="mb-3 form-password-toggle">
-                  <label class="form-label" for="password">Confirm Password</label>
-                  <div class="input-group input-group-merge">
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                  </div>
-                </div>
-                <button class="btn btn-primary d-grid w-100" type="submit">Sign up</button>
-              </form>
-
-              <p class="text-center">
-                <span>Already have an account?</span>
-                <a href="{{ route('usersLogin') }}">
-                  <span>Sign in instead</span>
-                </a>
-              </p>
             </div>
-          </div>
-          <!-- Register Card -->
         </div>
       </div>
     </div>
+
+    <!-- / Content -->
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -152,5 +110,61 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+      $.ajaxSetup({
+          headers: {  'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content') }
+      });
+      $(document).ready(function () {
+        $("#submit_otp_button").click(function () {
+          var email_otp = $("#email_otp").val();
+          var email = "{{ $email }}";
+          $.ajax({
+              url: `{{ route('emailVerify') }}`,
+              method: 'POST',
+              data: {
+                email: email,
+                otp: email_otp
+              },
+              success:function(response){
+                console.log(response);
+                if(response.status == 200) {
+                    Swal.fire({
+                      title: 'Success!',
+                      text: `${response.message}`,
+                      icon: 'success',
+                      confirmButtonText: 'OK'
+                    }).then((result) => {
+                      window.location.href ="/home";
+                    });
+                }
+                if (response.status == 500) {
+                  Swal.fire({
+                      title: 'Error!',
+                      text: `${response.message}`,
+                      icon: 'error',
+                      confirmButtonText: 'OK'
+                  });
+                }
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status === 429) {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Too Many Requests',
+                    text: 'You have exceeded the rate limit. Please wait a moment and try again.',
+                    confirmButtonText: 'Okay'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/";
+                    }
+                  });
+                } else {
+                    // handle other errors
+                }
+              }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
