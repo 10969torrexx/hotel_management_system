@@ -39,3 +39,15 @@ Auth::routes();
  */
     Route::get('/admin', [AdminController::class, 'login'])->name('adminLogin');
     Route::get('/admin/register', [AdminController::class, 'register'])->name('adminRegister');
+    
+    // Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
+    //     Route::get('/', [UsersController::class, 'login'])->name('usersLogin');
+    //     Route::get('/register', [UsersController::class, 'register'])->name('usersRegister');
+        
+    //     Route::get('/home', [HomeController::class, 'home'])->name('usersHome');
+    //     Route::get('/about', [HomeController::class, 'About'])->name('usersAbout');
+    //     Route::get('/rooms', [HomeController::class, 'our_room'])->name('usersRooms');
+    //     Route::get('/gallery', [HomeController::class, 'gallery'])->name('usersGallery');
+    //     Route::get('/blog', [HomeController::class, 'blog'])->name('usersBlog');
+    //     Route::get('/contact', [HomeController::class, 'contact_us'])->name('usersContact');
+    // });
