@@ -39,7 +39,7 @@
       <!-- header -->
       <header>
          <!-- header inner -->
-         <div class="header">
+         <div class="header sticky-top">
             <div class="container">
                <div class="row">
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
@@ -52,7 +52,7 @@
                      </div>
                   </div>
                   <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                     <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                     <nav class="navigation navbar navbar-expand-md navbar-dark sticky-top">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                         </button>
@@ -62,19 +62,19 @@
                                  <a class="nav-link" href="{{ route('usersHome') }}">Home</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="{{ route('usersAbout') }}">About</a>
+                                 <a class="nav-link" href="#about">About</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="{{ route('usersRooms') }}">Our room</a>
+                                 <a class="nav-link" href="#ourroom">Our room</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="{{ route('usersGallery') }}">Gallery</a>
+                                 <a class="nav-link" href="#gallery">Gallery</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="{{ route('usersBlog') }}">Blog</a>
+                                 <a class="nav-link" href="#blog">Blog</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="{{ route('usersContact') }}">Contact Us</a>
+                                 <a class="nav-link" href="#contact">Contact Us</a>
                               </li>
                               <li class="nav-item dropdown">
                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -168,7 +168,7 @@
       </section>
       <!-- end banner -->
       <!-- about -->
-      <div class="about">
+      <div class="about" id="about">
          <div class="container-fluid">
             <div class="row">
                <div class="col-md-5">
@@ -188,7 +188,7 @@
       </div>
       <!-- end about -->
       <!-- our_room -->
-      <div  class="our_room">
+      <div  class="our_room" id="ourroom">
          <div class="container">
             <div class="row">
                <div class="col-md-12">
@@ -270,7 +270,7 @@
       </div>
       <!-- end our_room -->
       <!-- gallery -->
-      <div  class="gallery">
+      <div  class="gallery" id="gallery">
          <div class="container">
             <div class="row">
                <div class="col-md-12">
@@ -325,7 +325,7 @@
       </div>
       <!-- end gallery -->
       <!-- blog -->
-      <div  class="blog">
+      <div  class="blog" id="blog">
          <div class="container">
             <div class="row">
                <div class="col-md-12">
@@ -377,7 +377,7 @@
       </div>
       <!-- end blog -->
       <!--  contact -->
-      <div class="contact">
+      <div class="contact" id="contact">
          <div class="container">
             <div class="row">
                <div class="col-md-12">

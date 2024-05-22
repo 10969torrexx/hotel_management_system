@@ -6,16 +6,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+    
     /**
      * Show the application dashboard.
      *
@@ -38,7 +29,7 @@ class HomeController extends Controller
 
     public function our_room()
     {
-        return view('keto.rooms');
+        return view('keto.room');
     }
 
     public function gallery()
