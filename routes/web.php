@@ -14,3 +14,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/sneat', function(){
     return view('sneat.index');
 });
+
+/**
+ * TORREXX fdc
+ */
