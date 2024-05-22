@@ -38,6 +38,7 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed', 'regex:/^(?=.*[a-z])(?=.*[A-Z]).+$/'],
+            'role' => ['required', 'string', 'max:255']
         ]);
         Session::put('googleUser', $request->all());
         return redirect()->route('emailIndex', ['email' => $request->email]);

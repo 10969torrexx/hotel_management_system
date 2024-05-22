@@ -22,7 +22,8 @@ class GoogleSignInController extends Controller
     public function store(Request $request)
     {
         # check is user already exists
-        $ifUserExists = User::where('email', $request->email)->first();
+        $ifUserExists = User::where('email', $request->email)
+            ->where('role', $request->role)->first();
         if (!$ifUserExists) {
             return response()->json(array(
                 'status' => 300,

@@ -73,7 +73,7 @@
                 <img src="{{ asset('assets/img/icons/logo.jpg') }}" app-brand-logoalt="" class="col-6">
               </div>
               <div class="app-brand justify-content-center">
-                  <h2><strong>Register</strong></h2>
+                  <h2><strong>Login</strong></h2>
               </div>
               <!-- /Logo -->
               <h4 class="mb-2">Login</h4>
@@ -169,7 +169,7 @@
             return JSON.parse(jsonPayload);
         }
     
-        window.onSignIn = googleUser =>{
+      window.onSignIn = googleUser =>{
             var user = decodeJwtResponse(googleUser.credential);
             if(user){
                 $.ajaxSetup({
@@ -180,6 +180,7 @@
                     method: 'POST',
                     data: {
                         email: user.email,
+                        role: 'user',
                         name: user.name,
                         picture: user.picture
                     },
