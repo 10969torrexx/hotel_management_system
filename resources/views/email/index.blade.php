@@ -136,10 +136,12 @@
                 success:function(response){
                     console.log(response);
                     if(response.status == 200) {
+                        console.log(response);
+                        var redirectTo = response.role == 'admin' ? "{{ route('adminHome') }}" : "{{ route('usersHome') }}";
                         toastr.success(`${response.message}`, 'Success!');
-                        setTimeout(function() {
-                            window.location.href = "{{ route('usersHome') }}";
-                        }, 2000); // delay of 2 seconds
+                        setTimeout(() => {
+                        window.location.href = redirectTo;
+                        }, 2000);
                     }
                     if (response.status == 500) {
                         toastr.error(response.message, 'Error!');

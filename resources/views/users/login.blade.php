@@ -82,7 +82,7 @@
                 <div class="g_id_signin form-control" data-type="standard"></div>
               </div>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST"> @csrf
                 <div class="mb-3">
                   <label for="email" class="form-label">Email or Username</label>
                   <input

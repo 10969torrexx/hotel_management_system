@@ -90,6 +90,7 @@
                     <h2><strong>Register</strong></h2>
                 </div>
               <form id="formAuthentication" class="mb-3" action="{{ route('usersStore') }}" method="POST"> @csrf
+                <input type="text" name="role" value="user" class="form-control d-none" hidden>
                 <div class="mb-3">
                   <label for="username" class="form-label">Name</label>
                   <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
