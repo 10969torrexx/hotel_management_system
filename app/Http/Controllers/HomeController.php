@@ -25,4 +25,34 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function home()
+    {
+        return view('keto.index');
+    }
+
+    public function About()
+    {
+        return view('keto.about');
+    }
+
+    public function our_room()
+    {
+        return view('keto.rooms');
+    }
+
+    public function gallery()
+    {
+        return view('keto.gallery');
+    }
+
+    public function blog()
+    {
+        return view('keto.blog');
+    }
+
+    public function contact_us()
+    {
+        return view('keto.contact');
+    }
 }
