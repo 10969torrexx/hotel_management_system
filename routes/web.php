@@ -1,20 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
 
 Route::get('/', function () {
     return view('keto.index');
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
 Route::get('/sneat', function(){
     return view('sneat.index');
 });
 
+Route::get('/keto', function(){
+    return view('keto.index');
+});
+
 /**
- * TORREXX fdc
+ * TODO: setting up the routes for the user side
  */
+    Route::get('/user', [UsersController::class, 'login'])->name('usersLogin');
+    Route::get('/user/register', [UsersController::class, 'register'])->name('usersRegister');
