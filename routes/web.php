@@ -61,8 +61,8 @@ Auth::routes();
     Route::get('/admin/register', [AdminController::class, 'register'])->name('adminRegister');
     
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
-        
         Route::get('/home', [AdminController::class, 'index'])->name('adminHome');
+        Route::get('/logout', [AdminController::class, 'logout'])->name('adminLogout');
         // Route::get('/about', [HomeController::class, 'About'])->name('usersAbout');
         // Route::get('/rooms', [HomeController::class, 'our_room'])->name('usersRooms');
         // Route::get('/gallery', [HomeController::class, 'gallery'])->name('usersGallery');

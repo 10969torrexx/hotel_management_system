@@ -31,7 +31,7 @@ class EmailController extends Controller
                 ]);
         
                 // Send OTP email
-                Mail::raw("Your OTP is: $otp", function ($message) use ($email) {
+                Mail::raw("Your OTP is: $oneTimePassword", function ($message) use ($email) {
                     $message->to($email)->subject('One Time Password');
                 });
             } else {
@@ -67,7 +67,8 @@ class EmailController extends Controller
             Auth::login($user);
             return response()->json([
                 'status' => 200, // 'error
-                'message' => 'OTP verified successfully'
+                'message' => 'OTP verified successfully',
+                'role' => !empty(Session::get('googleUser')['role']) ? Session::get('googleUser')['role'] : 'user',
             ]);
         } else {
             return response()->json([
