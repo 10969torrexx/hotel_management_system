@@ -59,22 +59,22 @@
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                            <ul class="navbar-nav mr-auto">
                               <li class="nav-item active">
-                                 <a class="nav-link" href="index.html">Home</a>
+                                 <a class="nav-link" href="{{ route('usersHome') }}">Home</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="about.html">About</a>
+                                 <a class="nav-link" href="{{ route('usersAbout') }}">About</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="room.html">Our room</a>
+                                 <a class="nav-link" href="{{ route('usersRooms') }}">Our room</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="gallery.html">Gallery</a>
+                                 <a class="nav-link" href="{{ route('usersGallery') }}">Gallery</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="blog.html">Blog</a>
+                                 <a class="nav-link" href="{{ route('usersBlog') }}">Blog</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="contact.html">Contact Us</a>
+                                 <a class="nav-link" href="{{ route('usersContact') }}">Contact Us</a>
                               </li>
                               <li class="nav-item dropdown">
                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

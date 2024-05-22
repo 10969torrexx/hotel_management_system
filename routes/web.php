@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('keto.index');
@@ -20,3 +21,11 @@ Route::get('/keto', function(){
  */
     Route::get('/user', [UsersController::class, 'login'])->name('usersLogin');
     Route::get('/user/register', [UsersController::class, 'register'])->name('usersRegister');
+    
+    Route::get('/user/home', [HomeController::class, 'home'])->name('usersHome');
+    Route::get('/user/about', [HomeController::class, 'About'])->name('usersAbout');
+    Route::get('/user/rooms', [HomeController::class, 'our_room'])->name('usersRooms');
+    Route::get('/user/gallery', [HomeController::class, 'gallery'])->name('usersGallery');
+    Route::get('/user/blog', [HomeController::class, 'blog'])->name('usersBlog');
+    Route::get('/user/contact', [HomeController::class, 'contact_us'])->name('usersContact');
+    
