@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Auth;
 
+Auth::routes();
 /**
  * TODO: these are simply for testing purposes
  */
