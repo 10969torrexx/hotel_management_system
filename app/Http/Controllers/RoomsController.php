@@ -9,7 +9,13 @@ class RoomsController extends Controller
 {
     public function index()
     {
-        return view('rooms.index');
+        $rooms = Rooms::all();
+        return view('rooms.index', compact('rooms'));
+    }
+    
+    public function add()
+    {
+        return view('rooms.add');
     }
 
     public function store(Request $request)

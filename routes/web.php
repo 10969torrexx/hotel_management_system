@@ -66,6 +66,7 @@ Auth::routes();
         Route::get('/logout', [AdminController::class, 'logout'])->name('adminLogout');
 
         Route::get('/rooms', [RoomsController::class, 'index'])->name('roomsIndex');
+        Route::get('/rooms/add', [RoomsController::class, 'add'])->name('roomsAdd');
         Route::post('/rooms/store', [RoomsController::class, 'store'])->name('roomsStore');
         // Route::get('/rooms', [HomeController::class, 'our_room'])->name('usersRooms');
         // Route::get('/gallery', [HomeController::class, 'gallery'])->name('usersGallery');
