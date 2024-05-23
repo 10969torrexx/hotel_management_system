@@ -50,7 +50,6 @@ Auth::routes();
 
     Route::group(['middleware' => 'auth', 'user'], function () {
         Route::post('chat/send', [ChatsController::class, 'store'])->name('sendMessage');
-       
     });
 /**
  * TODO: setting up the routes for the admin side
@@ -72,6 +71,7 @@ Auth::routes();
         Route::get('chat/get/', [ChatsController::class, 'get'])->name('getMessage');
         Route::get('chat/index', [ChatsController::class, 'index'])->name('chatIndex');
         Route::get('chat/show', [ChatsController::class, 'show'])->name('chatShow');
-        // Route::get('chat/delete/{id}', [ChatsController::class, 'destroy'])->name('chatDelete');
         Route::post('chat/reply', [ChatsController::class, 'reply'])->name('chatReply');
+        Route::get('chat/outbox', [ChatsController::class, 'outbox'])->name('chatOutbox');
+        Route::get('chat/delete', [ChatsController::class, 'delete'])->name('chatDelete');
     });

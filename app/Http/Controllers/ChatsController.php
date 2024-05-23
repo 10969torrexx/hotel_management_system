@@ -15,6 +15,13 @@ class ChatsController extends Controller
         return view('chats.index', compact('chats'));
     }
 
+    //
+    public function outbox()
+    {
+        $chats = Chats::where('status', 1)->get();
+        return view('chats.outbox', compact('chats'));
+    }
+
     public function store(Request $request) {
         $this->validate($request, [
             'name' => 'required',
@@ -63,5 +70,10 @@ class ChatsController extends Controller
         $chat->reply = $request->reply;
         $chat->save();
         return redirect()->back()->with('success', 'Message sent successfully');
+    }
+
+    public function delete(Request $request) {
+        $chat = Chats::where('id', $request->id)->delete();
+        return redirect()->back()->with('success', 'Message deleted successfully');
     }
 }
