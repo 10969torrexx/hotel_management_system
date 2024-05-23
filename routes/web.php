@@ -52,7 +52,7 @@ Auth::routes();
     Route::group(['middleware' => 'auth', 'user'], function () {
         Route::post('chat/send', [ChatsController::class, 'store'])->name('sendMessage');
         Route::get('reservation', [ReservationsController::class, 'index'])->name('reservationIndex');
-        Route::get('reservation/make', [ReservationsController::class, 'index'])->name('reservationIndex');
+        Route::get('reservation/make', [ReservationsController::class, 'make'])->name('reservationMake');
     });
 /**
  * TODO: setting up the routes for the admin side
