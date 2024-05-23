@@ -27,8 +27,6 @@
         'reservation_status' => [
             'Pending',
             'Accepted',
-            'Checked-in',
-            'Checked-out',
             'Declined'
         ],
     ];

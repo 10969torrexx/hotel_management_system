@@ -106,8 +106,8 @@
                     </a>
                 <ul class="menu-sub">
                     <li class="menu-item">
-                        <a href="pages-account-settings-account.html" class="menu-link">
-                            <div data-i18n="Account">Accepted</div>
+                        <a href="{{ route('reservationPending') }}" class="menu-link">
+                            <div data-i18n="Account">Pending</div>
                         </a>
                     </li>
                     <li class="menu-item">
