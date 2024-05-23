@@ -56,6 +56,7 @@ Auth::routes();
         Route::post('reservation/make', [ReservationsController::class, 'makeReservation'])->name('reservationMake');
         Route::get('reservation/my', [ReservationsController::class, 'myReservations'])->name('reservationMy');
     });
+    
 /**
  * TODO: setting up the routes for the admin side
  */
@@ -79,4 +80,7 @@ Auth::routes();
         Route::post('chat/reply', [ChatsController::class, 'reply'])->name('chatReply');
         Route::get('chat/outbox', [ChatsController::class, 'outbox'])->name('chatOutbox');
         Route::get('chat/delete', [ChatsController::class, 'delete'])->name('chatDelete');
+
+        Route::get('reservation/pending', [ReservationsController::class, 'pending'])->name('reservationPending');
+        Route::get('reservation/acceppt', [ReservationsController::class, 'acceppt'])->name('reservationAccept');
     });

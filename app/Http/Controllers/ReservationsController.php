@@ -58,9 +58,40 @@ class ReservationsController extends Controller
         return view('reservation.reservation', compact('reservations'));
     }
 
-    public function store(Request $request)
+    /**
+     * TODO: this page is accessible only to the admin
+     */
+    public function pending()
     {
-       
+        $reservations = Reservations::where('reservations.status', 0)
+            ->join('rooms', 'reservations.room_id', '=', 'rooms.id')
+            ->join('users', 'reservations.user_id', '=', 'users.id')
+            ->select('reservations.*', 'rooms.*', 'users.*', 'reservations.status as reservation_status', 'rooms.status as room_status', 'users.name as client_name')
+            ->get();
+        // "id" => 2
+        // "room_id" => 2
+        // "user_id" => 2
+        // "status" => 1
+        // "check_in" => "2024-05-23 00:00:00"
+        // "check_out" => "2024-05-25 00:00:00"
+        // "created_at" => "2024-05-23T13:55:53.000000Z"
+        // "updated_at" => "2024-05-23T13:55:53.000000Z"
+        // "number" => "1244"
+        // "name" => "Pablito P Torrecampo Jr."
+        // "description" => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+        // "file_path" => "rooms/1716480447.jpg"
+        // "type" => "4"
+        // "price" => 2000.0
+        // "email" => "10969torrexx@gmail.com"
+        // "email_verified_at" => null
+        // "role" => "user"
+        // "picture" => "default.jpg"
+        // "password" => "$2y$12$5/TIvzxSb.7NrqijogKs5ObmfF9j7NydsDT/vc0o1qrKlG2PwBU7q"
+        // "remember_token" => null
+        // "reservation_status" => 0
+        // "room_status" => 1
+        // "client_name" => "Pablito P Torrecampo Jr."
+        return view('reservation.pending', compact('reservations'));
     }
 
     public function show(Request $request)
