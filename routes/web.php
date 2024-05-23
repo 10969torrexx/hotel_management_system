@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GoogleSignInController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\RoomsController;
+use App\Http\Controllers\ChatsController;
 use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
@@ -46,7 +47,10 @@ Auth::routes();
     Route::get('/user/register', [UsersController::class, 'register'])->name('usersRegister');
     Route::post('/user/store', [UsersController::class, 'store'])->name('usersStore');
     Route::get('/user/home', [HomeController::class, 'home'])->name('usersHome');
-    
+
+    Route::group(['middleware' => 'auth', 'user'], function () {
+        Route::post('send/message', [ChatsController::class, 'store'])->name('sendMessage');
+    });
 /**
  * TODO: setting up the routes for the admin side
  */
