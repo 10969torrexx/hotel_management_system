@@ -54,6 +54,7 @@ Auth::routes();
         Route::get('reservation', [ReservationsController::class, 'index'])->name('reservationIndex');
         Route::get('reservation/make', [ReservationsController::class, 'make'])->name('reservationMake');
         Route::post('reservation/make', [ReservationsController::class, 'makeReservation'])->name('reservationMake');
+        Route::get('reservation/my', [ReservationsController::class, 'myReservations'])->name('reservationMy');
     });
 /**
  * TODO: setting up the routes for the admin side

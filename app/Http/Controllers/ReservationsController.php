@@ -49,6 +49,15 @@ class ReservationsController extends Controller
         return redirect(route('usersHome'))->with('success', 'Reservation made successfully');
     }
 
+    public function myReservations()
+    {
+        $reservations = Reservations::where('user_id', Auth::user()->id)
+            ->join('rooms', 'reservations.room_id', '=', 'rooms.id')
+            ->select('reservations.*', 'rooms.*', 'reservations.status as reservation_status', 'rooms.status as room_status')
+            ->get();
+        return view('reservation.reservation', compact('reservations'));
+    }
+
     public function store(Request $request)
     {
        
