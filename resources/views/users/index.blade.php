@@ -189,7 +189,8 @@
                               <figure><img src="/{{ $item->file_path }}" alt="#" witdh="100" height="100"/></figure>
                            </div>
                            <div class="p-4 text-left">
-                              <h2><strong>{{ $item->number }}</strong></h2>
+                              <h2><strong>{{ config('const.room_type.'. $item->type) }}</strong></h2>
+                              <span>{{ $item->number }}</span>
                               <p class="mb-2">{{ $item->description }} </p>
                               <p class="text-success">₱{{ number_format($item->price, 2) }}</p>
                               @guest
