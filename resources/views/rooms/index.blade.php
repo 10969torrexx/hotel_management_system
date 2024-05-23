@@ -17,8 +17,8 @@
                     </script>
                 @endif
                 <div class="card-body">
-                    <form action="{{ route('roomsStore') }}" method="post" enctype="multipart/form-data">@csrf
-                        <input type="text" class="form-control" name="id" id="id">
+                    <form action="{{ route('roomsStore') }}" method="post" enctype="multipart/form-data" id="roomForm">@csrf
+                        <input type="text" class="form-control d-none" hidden name="id" id="id">
                         <div class="mb-3">
                             <label for="defaultFormControlInput" class="form-label">Number</label>
                             <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
@@ -54,6 +54,7 @@
                             <textarea class="form-control" name="description"  id="description" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Room</button>    
+                        <button type="button" class="btn btn-warning" id="updatebutton" disabled>Update Room</button>    
                     </form>
                 </div>
             </div>
@@ -118,6 +119,8 @@
     <script>
         $(document).on('click', '#editbutton', function() {
             var id = $(this).data('id');
+            var updatebutton = $('#updatebutton');
+            updatebutton.prop('disabled', false);
             $.ajax({
                 url: "{{ route('roomsShow') }}",
                 type: "GET",
@@ -136,6 +139,11 @@
                     console.log(response.data.id);
                 }
             });
+        });
+        $(document).on('click', '#updatebutton', function() {
+            var form = $('#roomForm');
+            form.attr('action', `{{ route('roomsUpdate') }}`); // Set the new action URL
+            form.submit(); // Submit the form
         });
     </script>
 @endsection
