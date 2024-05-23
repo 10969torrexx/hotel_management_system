@@ -18,6 +18,7 @@
         ],
         'room_status' => [
             'Available',
+            'Reserved',
             'Booked',
             'Maintenance',
             'Cleaning',
