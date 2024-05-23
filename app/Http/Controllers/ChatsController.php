@@ -9,7 +9,8 @@ class ChatsController extends Controller
     //
     public function index()
     {
-        // return view('chats.index');
+        $chats = Chats::where('status', 0)->get();
+        return view('chats.index', compact('chats'));
     }
 
     public function store(Request $request) {
@@ -28,5 +29,13 @@ class ChatsController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Message sent successfully');
+    }
+
+    public function get(Request $request) {
+        $chats = Chats::where('status', $request->status)->get();
+        return response()->json([
+            'status' => 200,
+            'data' => $chats
+        ]);
     }
 }
