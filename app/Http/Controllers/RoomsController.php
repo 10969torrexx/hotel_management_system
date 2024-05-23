@@ -48,12 +48,16 @@ class RoomsController extends Controller
         return redirect(route('roomsIndex'))->with('success', 'Room created successfully');
     }
 
-    public function show($id)
+    public function show(Request $request)
     {
-
+        $room = Rooms::where('id', $request->id)->first();
+        return response()->json([
+            'status' => 200,
+            'data' => $room
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
 
     }
