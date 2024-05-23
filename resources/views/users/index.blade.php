@@ -186,8 +186,13 @@
                               <figure><img src="/{{ $item->file_path }}" alt="#" witdh="100" height="100"/></figure>
                            </div>
                            <div class="p-4 text-left">
-                              <h3><strong>{{ $item->number }}</strong></h3>
-                              <p class="text">{{ $item->description }} </p>
+                              <h2><strong>{{ $item->number }}</strong></h2>
+                              <p class="mb-2">{{ $item->description }} </p>
+                              <p class="text-success">₱{{ number_format($item->price, 2) }}</p>
+                              @guest
+                              @else
+                                 <p class="text-warning">{{ config('const.room_status.'. $item->status) }}</p>
+                              @endguest
                            </div>
                         </div>
                      </div>
