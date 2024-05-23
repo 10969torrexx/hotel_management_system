@@ -71,5 +71,7 @@ Auth::routes();
 
         Route::get('chat/get/', [ChatsController::class, 'get'])->name('getMessage');
         Route::get('chat/index', [ChatsController::class, 'index'])->name('chatIndex');
-        Route::get('chat/delete/{id}', [ChatsController::class, 'destroy'])->name('deleteMessage');
+        Route::get('chat/show', [ChatsController::class, 'show'])->name('chatShow');
+        // Route::get('chat/delete/{id}', [ChatsController::class, 'destroy'])->name('chatDelete');
+        Route::post('chat/reply', [ChatsController::class, 'reply'])->name('chatReply');
     });

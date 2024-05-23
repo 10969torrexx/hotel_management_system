@@ -17,44 +17,29 @@
                     </script>
                 @endif
                 <div class="card-body">
-                    <form action="{{ route('roomsStore') }}" method="post" enctype="multipart/form-data" id="roomForm">@csrf
+                    <form action="{{route('chatReply')}}" method="post" enctype="multipart/form-data">@csrf
                         <input type="text" class="form-control d-none" hidden name="id" id="id">
                         <div class="mb-3">
-                            <label for="defaultFormControlInput" class="form-label">Number</label>
-                            <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
-                            @error('number')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <label for="defaultFormControlInput" class="form-label">Name</label>
+                            <label for="" class="form-control" id="name">Lorem ipsum dolor</label>
                         </div>
                         <div class="mb-3">
-                            <label for="defaultFormControlInput" class="form-label">Price</label>
-                            <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required autocomplete="price" autofocus>
-                            @error('price')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <label for="defaultFormControlInput" class="form-label">Email</label>
+                            <label for="" class="form-control" id="email">example@sample.com</label>
                         </div>
                         <div class="mb-3">
-                            <label for="defaultSelect" class="form-label">Room Type</label>
-                            <select id="defaultSelect" class="form-select" name="type">
-                                @foreach (config('const.room_type') as $item)
-                                    <option value="{{ ($loop->iteration) - 1 }}">{{ ucfirst(config('const.room_type.'.($loop->iteration) - 1)) }}</option>
-                                @endforeach
-                            </select>
+                            <label for="defaultFormControlInput" class="form-label">Phome Number</label>
+                            <label for="" class="form-control" id="phone_number">8-91-93</label>
                         </div>
                         <div class="mb-3">
-                            <label for="formFile" class="form-label">Image</label>
-                            <input class="form-control" name="img" id="img formFile" type="file">
-                          </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                            <textarea class="form-control" name="description"  id="description" rows="3"></textarea>
+                            <label for="defaultFormControlInput" class="form-label">Message</label>
+                            <label for="" class="form-control" id="message">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta inventore sunt officiis a quas iure voluptate eos! Voluptatem, exercitationem adipisci? Temporibus neque quisquam cum necessitatibus iste expedita tempora aspernatur accusantium.</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Room</button>    
-                        <button type="button" class="btn btn-warning" id="updatebutton" disabled>Update Room</button>    
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Reply</label>
+                            <textarea class="form-control" name="reply"  id="description" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>    
                     </form>
                 </div>
             </div>
@@ -90,10 +75,10 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->phone_number }}</td>
-                                    <td class="text-nowrap">{{ $item->message }}</td>
+                                    <td class="text-wrap">{{ $item->message }}</td>
                                     <td>{{ date('M, d, Y', strtotime($item->created_at)) }}</td>
                                     <th>
-                                        <a href="#" class="btn btn-outline-primary">Reply</a>
+                                        <a href="#" class="btn btn-outline-primary" id="replybutton" data-id="{{ $item->id }}">Reply</a>
                                     </th>
                                 </tr>
                             @endforeach
@@ -107,33 +92,25 @@
     </div>
 
     <script>
-        $(document).on('click', '#editbutton', function() {
+       $(document).on('click', '#replybutton', function(e){
+            e.preventDefault();
             var id = $(this).data('id');
-            var updatebutton = $('#updatebutton');
-            updatebutton.prop('disabled', false);
             $.ajax({
-                url: "{{ route('roomsShow') }}",
+                url: "{{ route('chatShow') }}",
                 type: "GET",
                 data: {
                     id: id
                 },
-                success: function(response) {
-                    $('#number').val(response.data.number);
-                    $('#price').val(response.data.price);
-                    $('#description').text(response.data.description);
-                    $('#defaultSelect').val(response.data.type);
-                    $('#exampleFormControlTextarea1').val(response.data.description);
-                    $('#img').val(response.file_path);
+                success: function(response){
+                    console.log(response);
                     $('#id').val(response.data.id);
-
-                    console.log(response.data.id);
+                    $('#name').text(response.data.name);
+                    $('#email').text(response.data.email);
+                    $('#phone_number').text(response.data.phone_number);
+                    $('#message').text(response.data.message);
                 }
             });
         });
-        $(document).on('click', '#updatebutton', function() {
-            var form = $('#roomForm');
-            form.attr('action', `{{ route('roomsUpdate') }}`); // Set the new action URL
-            form.submit(); // Submit the form
-        });
+
     </script>
 @endsection
