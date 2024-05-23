@@ -13,6 +13,20 @@ class ChatsController extends Controller
     }
 
     public function store(Request $request) {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'message' => 'required'
+        ]);
 
+        $chat = Chats::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'message' => $request->message
+        ]);
+
+        return redirect()->back()->with('success', 'Message sent successfully');
     }
 }

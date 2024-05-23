@@ -25,14 +25,17 @@
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <!-- CSRF Token -->
+      <meta name="csrf-token" content="{{ csrf_token() }}">
+      <!-- Include Toastr CSS -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+      <!-- Include jQuery (required for Toastr) -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- Include Toastr JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
    </head>
    <!-- body -->
    <body class="main-layout">
-      <!-- loader  -->
-      <div class="loader_bg">
-         <div class="loader"><img src="/images/loading.gif" alt="#"/></div>
-      </div>
-      <!-- end loader -->
       <!-- header -->
       <header>
          <!-- header inner -->
@@ -310,6 +313,18 @@
       </div>
       <!-- end blog -->
       <!--  contact -->
+      @if ($errors->any())
+         @foreach ($errors->all() as $error)
+            <script>
+                  toastr.error("{{  $error }}")
+            </script>
+         @endforeach
+      @endif
+      @if(Session::has('success'))
+         <script>
+            toastr.success("{{ Session::get('success') }}")
+         </script>
+      @endif
       <div class="contact" id="contact">
          <div class="container">
             <div class="row">
@@ -324,16 +339,20 @@
                   <form id="request" class="main_form" action="{{ route('sendMessage') }}" method="POST"> @csrf
                      <div class="row">
                         <div class="col-md-12 ">
-                           <input class="contactus" placeholder="Name" type="type" name="Name"> 
+                           <input class="contactus" placeholder="Name" type="type" name="name"> 
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Email" type="type" name="Email"> 
+                           @guest
+                              <input class="contactus" placeholder="Email" type="type" name="email" value="{{ Auth::user()->name }}"> 
+                           @else
+                              <input class="contactus" placeholder="Email" type="type" name="email" value="{{ Auth::user()->email }}"> 
+                          @endguest
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">                          
+                           <input class="contactus" placeholder="Phone Number" type="type" name="phone_number">                          
                         </div>
                         <div class="col-md-12">
-                           <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message</textarea>
+                           <textarea class="textarea" placeholder="Message" type="type" name="message" Message="Name" placeholder="Message"></textarea>
                         </div>
                         <div class="col-md-12">
                            @guest
@@ -373,11 +392,11 @@
                      <h3>Menu Link</h3>
                      <ul class="link_menu">
                         <li class="active"><a href="#">Home</a></li>
-                        <li><a href="about.html"> about</a></li>
-                        <li><a href="room.html">Our Room</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#about"> about</a></li>
+                        <li><a href="#room">Our Room</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
                      </ul>
                   </div>
                   <div class="col-md-4">
@@ -392,21 +411,6 @@
                         <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
                         <li><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
                      </ul>
-                  </div>
-               </div>
-            </div>
-            <div class="copyright">
-               <div class="container">
-                  <div class="row">
-                     <div class="col-md-10 offset-md-1">
-                        
-                        <p>
-                        © 2019 All Rights Reserved. Design by <a href="https://html.design/"> Free Html Templates</a>
-                        <br><br>
-                        Distributed by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-                        </p>
-
-                     </div>
                   </div>
                </div>
             </div>
