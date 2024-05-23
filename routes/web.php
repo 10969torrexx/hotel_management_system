@@ -49,7 +49,8 @@ Auth::routes();
     Route::get('/user/home', [HomeController::class, 'home'])->name('usersHome');
 
     Route::group(['middleware' => 'auth', 'user'], function () {
-        Route::post('send/message', [ChatsController::class, 'store'])->name('sendMessage');
+        Route::post('chat/send', [ChatsController::class, 'store'])->name('sendMessage');
+       
     });
 /**
  * TODO: setting up the routes for the admin side
@@ -67,4 +68,8 @@ Auth::routes();
         Route::get('/rooms/delete/{id}', [RoomsController::class, 'destroy'])->name('roomsDelete');
         Route::post('/rooms/update', [RoomsController::class, 'update'])->name('roomsUpdate');
         Route::get('/rooms/show}', [RoomsController::class, 'show'])->name('roomsShow');
+
+        Route::get('chat/get/', [ChatsController::class, 'get'])->name('getMessage');
+        Route::get('chat/index', [ChatsController::class, 'index'])->name('chatIndex');
+        Route::get('chat/delete/{id}', [ChatsController::class, 'destroy'])->name('deleteMessage');
     });

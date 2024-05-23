@@ -339,11 +339,15 @@
                   <form id="request" class="main_form" action="{{ route('sendMessage') }}" method="POST"> @csrf
                      <div class="row">
                         <div class="col-md-12 ">
-                           <input class="contactus" placeholder="Name" type="type" name="name"> 
+                           @guest
+                              <input class="contactus" placeholder="Name" type="type" name="name"> 
+                           @else
+                              <input type="text" placeholder="Name" value="{{ Auth::user()->name }}" name="name" class="contactus">
+                           @endguest
                         </div>
                         <div class="col-md-12">
                            @guest
-                              <input class="contactus" placeholder="Email" type="type" name="email" value="{{ Auth::user()->name }}"> 
+                              <input class="contactus" placeholder="Email" type="type" name="email" value=""> 
                            @else
                               <input class="contactus" placeholder="Email" type="type" name="email" value="{{ Auth::user()->email }}"> 
                           @endguest

@@ -94,23 +94,8 @@
                     </a>
                 <ul class="menu-sub">
                     <li class="menu-item">
-                    <a href="{{ route('roomsIndex') }}" class="menu-link">
-                        <div data-i18n="Without menu">View</div>
-                    </a>
-                    </li>
-                    <li class="menu-item">
-                    <a href="{{ route('roomsAdd') }}" class="menu-link">
-                        <div data-i18n="Without navbar">Add</div>
-                    </a>
-                    </li>
-                    <li class="menu-item">
-                    <a href="layouts-container.html" class="menu-link">
-                        <div data-i18n="Container">Remove</div>
-                    </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="layouts-container.html" class="menu-link">
-                        <div data-i18n="Container">Update</div>
+                        <a href="{{ route('roomsIndex') }}" class="menu-link">
+                            <div data-i18n="Without menu">View</div>
                         </a>
                     </li>
                 </ul>
@@ -139,18 +124,13 @@
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item">
-                    <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                        <div data-i18n="Basic">Login</div>
+                    <a href="{{ route('chatIndex') }}" class="menu-link">
+                        <div data-i18n="Basic">Inbox</div>
                     </a>
                     </li>
                     <li class="menu-item">
-                    <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                        <div data-i18n="Basic">Register</div>
-                    </a>
-                    </li>
-                    <li class="menu-item">
-                    <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                        <div data-i18n="Basic">Forgot Password</div>
+                    <a href="auth-register-basic.html" class="menu-link">
+                        <div data-i18n="Basic">Outbox</div>
                     </a>
                     </li>
                 </ul>
