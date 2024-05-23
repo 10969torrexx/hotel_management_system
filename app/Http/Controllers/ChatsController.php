@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use App\Models\Chats;
 class ChatsController extends Controller
 {
@@ -37,5 +39,29 @@ class ChatsController extends Controller
             'status' => 200,
             'data' => $chats
         ]);
+    }
+
+    public function show(Request $request) {
+        $chat = Chats::where('id', $request->id)->first();
+        return response()->json([
+            'status' => 200,
+            'data' => $chat,
+            'request' => $request->all()
+        ]);
+    }
+
+    public function reply(Request $request) {
+        $this->validate($request, [
+            'reply' => 'required'
+        ]);
+        $chat = Chats::where('id', $request->id)->first();
+        $email = $chat->email;
+        Mail::send('email.reply', ['chatMessage' => $chat->message, 'replyMessage' => $request->reply], function ($message) use ($email) {
+            $message->to($email)->subject('Reply from GMB chat bot');
+        });
+        $chat->status = 1;
+        $chat->reply = $request->reply;
+        $chat->save();
+        return redirect()->back()->with('success', 'Message sent successfully');
     }
 }
