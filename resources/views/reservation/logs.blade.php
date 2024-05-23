@@ -15,7 +15,7 @@
     @endif
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <h5 class="card-header">Pending Reservations</h5>
+            <h5 class="card-header">Reservation Log</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
@@ -29,7 +29,6 @@
                       <th>Check In</th>
                       <th>Check Out</th>
                       <th>Status</th>
-                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -43,27 +42,6 @@
                                 <td>{{ date('M, d, Y', strtotime($item->check_in)) }}</td>
                                 <td>{{ date('M, d, Y', strtotime($item->check_out)) }}</td>
                                 <td><span class="badge bg-label-primary me-1">{{ config('const.reservation_status.'.$item->reservation_status) }}</span></td>
-                                <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('reservationAccept', [
-                                            'id' => $item->reservation_id, 
-                                            'email' => $item->email, 
-                                            'number' => $item->number, 
-                                            'room_id' => $item->room_id
-                                        ]) }}"><i class="bx bx-edit-alt me-1"></i> Accept</a>
-                                        <a class="dropdown-item" href="{{ route('reservationDecline', [
-                                            'id' => $item->reservation_id, 
-                                            'email' => $item->email, 
-                                            'number' => $item->number, 
-                                            'room_id' => $item->room_id
-                                        ]) }}"><i class="bx bx-trash me-1"></i> Decline</a>
-                                    </div>
-                                </div>
-                                </td>
                             </tr>
                         @endforeach
                   </tbody>
