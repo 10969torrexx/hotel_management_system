@@ -83,6 +83,8 @@ class RoomsController extends Controller
             'type' => $request->type,
             'price' => $request->price
         ]);
+
+        return redirect(route('roomsIndex'))->with('success', 'Room updated successfully');
     }
 
     public function destroy($id)
