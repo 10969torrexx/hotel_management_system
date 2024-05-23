@@ -196,6 +196,7 @@
                               @guest
                               @else
                                  <p class="{{ $item->status == 0 ? 'text-warning' : 'text-danger' }}">{{ config('const.room_status.'. $item->status) }}</p>
+                                 <a href="{{ route('reservationMake', ['id' => $item->id ]) }}" class="btn btn-primary mt-3">Reserve Room</a>
                               @endguest
                            </div>
                         </div>
