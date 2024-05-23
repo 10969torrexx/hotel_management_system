@@ -64,7 +64,7 @@ class ChatsController extends Controller
         $chat = Chats::where('id', $request->id)->first();
         $email = $chat->email;
         Mail::send('email.reply', ['chatMessage' => $chat->message, 'replyMessage' => $request->reply], function ($message) use ($email) {
-            $message->to($email)->subject('Reply from GMB chat bot');
+            $message->to($email)->subject('No Reply');
         });
         $chat->status = 1;
         $chat->reply = $request->reply;

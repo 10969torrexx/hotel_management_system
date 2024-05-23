@@ -13,7 +13,7 @@ class ReservationsController extends Controller
         return view('rooms.index', compact('rooms'));
     }
 
-    public function make()
+    public function make(Request $request)
     {
         return view('reservation.make');
     }
