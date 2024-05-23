@@ -51,7 +51,7 @@
                           </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                            <textarea class="form-control" name="description"  id="exampleFormControlTextarea1 description" rows="3"></textarea>
+                            <textarea class="form-control" name="description"  id="description" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Room</button>    
                     </form>
@@ -128,7 +128,7 @@
                     $('#number').val(response.data.number);
                     $('#price').val(response.data.price);
                     $('#description').text(response.data.description);
-                    $('#defaultSelect').val(response.type);
+                    $('#defaultSelect').val(response.data.type);
                     $('#exampleFormControlTextarea1').val(response.data.description);
                     $('#img').val(response.file_path);
                     $('#id').val(response.data.id);
