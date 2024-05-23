@@ -60,6 +60,7 @@ class ChatsController extends Controller
             $message->to($email)->subject('Reply from GMB chat bot');
         });
         $chat->status = 1;
+        $chat->reply = $request->reply;
         $chat->save();
         return redirect()->back()->with('success', 'Message sent successfully');
     }
