@@ -397,7 +397,7 @@
                      <ul class="link_menu">
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="#about"> about</a></li>
-                        <li><a href="#room">Our Room</a></li>
+                        <li><a href="#ourroom">Our Room</a></li>
                         <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#blog">Blog</a></li>
                         <li><a href="#contact">Contact Us</a></li>

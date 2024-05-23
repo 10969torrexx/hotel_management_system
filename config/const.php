@@ -23,4 +23,11 @@
             'Cleaning',
             'Out of service'
         ],
+        'reservation_status' => [
+            'Pending',
+            'Accepted',
+            'Checked-in',
+            'Checked-out',
+            'Declined'
+        ],
     ];

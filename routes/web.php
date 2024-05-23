@@ -8,6 +8,7 @@ use App\Http\Controllers\GoogleSignInController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\ChatsController;
+use App\Http\Controllers\ReservationsController;
 use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
@@ -50,6 +51,8 @@ Auth::routes();
 
     Route::group(['middleware' => 'auth', 'user'], function () {
         Route::post('chat/send', [ChatsController::class, 'store'])->name('sendMessage');
+        Route::get('reservation', [ReservationsController::class, 'index'])->name('reservationIndex');
+        Route::get('reservation/make', [ReservationsController::class, 'index'])->name('reservationIndex');
     });
 /**
  * TODO: setting up the routes for the admin side
