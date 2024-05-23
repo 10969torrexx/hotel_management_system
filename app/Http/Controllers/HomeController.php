@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Rooms;
 
 class HomeController extends Controller
 {
@@ -19,31 +20,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        return view('keto.index');
-    }
-
-    public function About()
-    {
-        return view('keto.about');
-    }
-
-    public function our_room()
-    {
-        return view('keto.room');
-    }
-
-    public function gallery()
-    {
-        return view('keto.gallery');
-    }
-
-    public function blog()
-    {
-        return view('keto.blog');
-    }
-
-    public function contact_us()
-    {
-        return view('keto.contact');
+        $rooms = Rooms::all();
+        return view('users.index', compact('rooms'));
     }
 }

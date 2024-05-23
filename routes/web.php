@@ -41,19 +41,11 @@ Auth::routes();
 /**
  * TODO: setting up the routes for the user side
  */
-    Route::get('/', function () {
-        return view('keto.index');
-    });
+    Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('/user', [UsersController::class, 'login'])->name('usersLogin');
     Route::get('/user/register', [UsersController::class, 'register'])->name('usersRegister');
     Route::post('/user/store', [UsersController::class, 'store'])->name('usersStore');
-    
     Route::get('/user/home', [HomeController::class, 'home'])->name('usersHome');
-    Route::get('/user/about', [HomeController::class, 'About'])->name('usersAbout');
-    Route::get('/user/rooms', [HomeController::class, 'our_room'])->name('usersRooms');
-    Route::get('/user/gallery', [HomeController::class, 'gallery'])->name('usersGallery');
-    Route::get('/user/blog', [HomeController::class, 'blog'])->name('usersBlog');
-    Route::get('/user/contact', [HomeController::class, 'contact_us'])->name('usersContact');
     
 /**
  * TODO: setting up the routes for the admin side
@@ -71,5 +63,4 @@ Auth::routes();
         Route::get('/rooms/delete/{id}', [RoomsController::class, 'destroy'])->name('roomsDelete');
         Route::post('/rooms/update', [RoomsController::class, 'update'])->name('roomsUpdate');
         Route::get('/rooms/show}', [RoomsController::class, 'show'])->name('roomsShow');
-        
     });
