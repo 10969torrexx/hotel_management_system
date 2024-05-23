@@ -114,7 +114,7 @@
         </header>
       <!-- end header inner -->
       <!-- end header -->
-        <div class="row justify-content-center py-4">
+        <div class="container py-4">
             @yield('content')
         </div>
       <!--  footer -->

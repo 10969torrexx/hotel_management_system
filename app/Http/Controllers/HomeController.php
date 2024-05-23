@@ -20,7 +20,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        $rooms = Rooms::all();
+        $rooms = Rooms::where('status', 0)->get();
         return view('users.index', compact('rooms'));
     }
 }
