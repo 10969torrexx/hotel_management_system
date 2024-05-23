@@ -195,7 +195,7 @@
                               <p class="text-success">₱{{ number_format($item->price, 2) }}</p>
                               @guest
                               @else
-                                 <p class="text-warning">{{ config('const.room_status.'. $item->status) }}</p>
+                                 <p class="{{ $item->status == 0 ? 'text-warning' : 'text-danger' }}">{{ config('const.room_status.'. $item->status) }}</p>
                               @endguest
                            </div>
                         </div>
