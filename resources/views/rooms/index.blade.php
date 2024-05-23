@@ -18,6 +18,7 @@
                 @endif
                 <div class="card-body">
                     <form action="{{ route('roomsStore') }}" method="post" enctype="multipart/form-data">@csrf
+                        <input type="text" class="form-control" name="id" id="id">
                         <div class="mb-3">
                             <label for="defaultFormControlInput" class="form-label">Number</label>
                             <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
@@ -50,7 +51,7 @@
                           </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                            <textarea class="form-control" name="description"  id="exampleFormControlTextarea1 description" rows="3"></textarea>
+                            <textarea class="form-control" name="description"  id="description" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Room</button>    
                     </form>
@@ -98,7 +99,7 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                            <a class="dropdown-item" id="editbutton" href="javascript:void(0);" data-id="{{ $item->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                                             <a class="dropdown-item" href="{{ route('roomsDelete', ['id' => $item->id]) }}"><i class="bx bx-trash me-1"></i> Delete</a>
                                             </div>
                                         </div>
@@ -113,4 +114,28 @@
             @endif
         </div>
     </div>
+
+    <script>
+        $(document).on('click', '#editbutton', function() {
+            var id = $(this).data('id');
+            $.ajax({
+                url: "{{ route('roomsShow') }}",
+                type: "GET",
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    $('#number').val(response.data.number);
+                    $('#price').val(response.data.price);
+                    $('#description').text(response.data.description);
+                    $('#defaultSelect').val(response.data.type);
+                    $('#exampleFormControlTextarea1').val(response.data.description);
+                    $('#img').val(response.file_path);
+                    $('#id').val(response.data.id);
+
+                    console.log(response.data.id);
+                }
+            });
+        });
+    </script>
 @endsection
