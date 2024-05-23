@@ -321,7 +321,7 @@
             </div>
             <div class="row">
                <div class="col-md-6">
-                  <form id="request" class="main_form">
+                  <form id="request" class="main_form" action="{{ route('sendMessage') }}" method="POST"> @csrf
                      <div class="row">
                         <div class="col-md-12 ">
                            <input class="contactus" placeholder="Name" type="type" name="Name"> 
@@ -336,7 +336,11 @@
                            <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message</textarea>
                         </div>
                         <div class="col-md-12">
-                           <button class="send_btn">Send</button>
+                           @guest
+                              <a href="{{ route('usersLogin') }}" class="send_btn text-center">Send</a>
+                           @else   
+                              <button class="send_btn" type="submit">Send</button>
+                           @endguest
                         </div>
                      </div>
                   </form>
