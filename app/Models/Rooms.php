@@ -14,6 +14,7 @@ class Rooms extends Model
         'description',
         'file_path',
         'type',
+        'status',
         'price'
     ];
 }
