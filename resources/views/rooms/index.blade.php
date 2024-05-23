@@ -46,6 +46,14 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="defaultStatus" class="form-label">Status</label>
+                            <select id="defaultStatus" class="form-select" name="status">
+                                @foreach (config('const.room_status') as $item)
+                                    <option value="{{ ($loop->iteration) - 1 }}">{{ ucfirst(config('const.room_status.'.($loop->iteration) - 1)) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="formFile" class="form-label">Image</label>
                             <input class="form-control" name="img" id="img formFile" type="file">
                           </div>
@@ -78,6 +86,7 @@
                             <tr>
                             <th>Room #</th>
                             <th>Description</th>
+                            <th>Price</th>
                             <th>Image</th>
                             <th>Type</th>
                             <th>Status</th>
@@ -90,6 +99,7 @@
                                 <tr>
                                     <td>{{ $item->number }}</td>
                                     <td class="text-wrap">{{ $item->description }}</td>
+                                    <td>₱{{ number_format($item->price, 2) }}</td>
                                     <td><img src="/{{ $item->file_path }}" alt="" height="100"></td>
                                     <td>{{ ucfirst(config('const.room_type.'.($item->type) )) }}</td>
                                     <td>{{ ucfirst(config('const.room_status.' . $item->status)) }}</td>
@@ -132,11 +142,12 @@
                     $('#price').val(response.data.price);
                     $('#description').text(response.data.description);
                     $('#defaultSelect').val(response.data.type);
+                    $('#defaultStatus').val(response.data.status);
                     $('#exampleFormControlTextarea1').val(response.data.description);
                     $('#img').val(response.file_path);
                     $('#id').val(response.data.id);
 
-                    console.log(response.data.id);
+                    console.log(response.data);
                 }
             });
         });
