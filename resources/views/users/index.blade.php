@@ -97,7 +97,7 @@
                                        <a class="dropdown-item" href="{{ route('usersLogin') }}">Login</a>
                                        <a class="dropdown-item" href="{{ route('usersRegister') }}">Register</a>
                                     @else
-                                       <a class="dropdown-item" href="#">My Registrations</a>
+                                       <a class="dropdown-item" href="{{ route('reservationMy') }}">My Reservations</a>
                                        <a class="dropdown-item" href="{{ route('logout') }}"
                                           onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();">
@@ -206,9 +206,9 @@
                               <span>{{ $item->number }}</span>
                               <p class="mb-2">{{ $item->description }} </p>
                               <p class="text-success">₱{{ number_format($item->price, 2) }}</p>
+                              <p class="{{ $item->status == 0 ? 'text-warning' : 'text-danger' }}">{{ config('const.room_status.'. $item->status) }}</p>
                               @guest
                               @else
-                                 <p class="{{ $item->status == 0 ? 'text-warning' : 'text-danger' }}">{{ config('const.room_status.'. $item->status) }}</p>
                                  <a href="{{ route('reservationMake', ['id' => $item->id ]) }}" class="btn btn-primary mt-3">Reserve Room</a>
                               @endguest
                            </div>
