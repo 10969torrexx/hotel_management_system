@@ -37,6 +37,18 @@
    <!-- body -->
    <body class="main-layout">
       <!-- header -->
+      @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <script>
+                toastr.error("{{  $error }}")
+            </script>
+        @endforeach
+      @endif
+      @if(Session::has('success'))
+         <script>
+               toastr.success("{{ Session::get('success') }}")
+         </script>
+      @endif
       <header>
          <!-- header inner -->
          <div class="header sticky-top">
@@ -85,6 +97,7 @@
                                        <a class="dropdown-item" href="{{ route('usersLogin') }}">Login</a>
                                        <a class="dropdown-item" href="{{ route('usersRegister') }}">Register</a>
                                     @else
+                                       <a class="dropdown-item" href="#">My Registrations</a>
                                        <a class="dropdown-item" href="{{ route('logout') }}"
                                           onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();">
