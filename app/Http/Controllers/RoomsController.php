@@ -59,7 +59,32 @@ class RoomsController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'number' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'img' => ['required', 'mimes:jpeg,jpg,pdf'],
+            'type' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'numeric']
+        ]);
 
+        if($request->hasFile('img'))
+        {
+            $image = $request->img;
+            $imagename = time().'.'.$image->getClientOriginalExtension();
+            $imagePath = 'rooms/'.$imagename;
+            $image->move(public_path('rooms'),$imagename);
+        }
+
+        $room = Rooms::where('id', $request->id)->update([
+            'number' => $request->number,
+            'name' => $imagename,
+            'description' => $request->description,
+            'file_path' => $imagePath,
+            'type' => $request->type,
+            'price' => $request->price
+        ]);
+
+        return redirect(route('roomsIndex'))->with('success', 'Room updated successfully');
     }
 
     public function destroy($id)
