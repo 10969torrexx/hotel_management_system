@@ -67,7 +67,11 @@ class ReservationsController extends Controller
             $reservations = Reservations::where('reservations.status', 0)
                 ->join('rooms', 'reservations.room_id', '=', 'rooms.id')
                 ->join('users', 'reservations.user_id', '=', 'users.id')
-                ->select('reservations.*', 'rooms.*', 'users.*', 'reservations.status as reservation_status', 'reservations.id as reservation_id', 'rooms.status as room_status', 'users.name as client_name')
+                ->select('reservations.*', 'rooms.*', 'users.*', 
+                    'reservations.status as reservation_status', 
+                    'reservations.id as reservation_id', 
+                    'rooms.status as room_status',  
+                    'users.name as client_name')
                 ->get();
         
             return view('reservation.pending', compact('reservations'));
@@ -82,6 +86,9 @@ class ReservationsController extends Controller
             $reservation = Reservations::where('id', $request->id)->update([
                 'status' => 1
             ]);
+            $rooms = Rooms::where('id', $request->room_id)->update([
+                'status' => 2
+            ]);
             return redirect(route('reservationPending'))->with('success', 'Reservation accepted');
         }
 
@@ -94,13 +101,21 @@ class ReservationsController extends Controller
             $reservation = Reservations::where('id', $request->id)->update([
                 'status' => 2
             ]);
+            $rooms = Rooms::where('id', $request->room_id)->update([
+                'status' => 0
+            ]);
             return redirect(route('reservationPending'))->with('success', 'Reservation accepted');
         }
 
-    public function update(Request $request)
-    {
-       
-    }
+        public function logs()
+        {
+            $reservations = Reservations::join('rooms', 'reservations.room_id', '=', 'rooms.id')
+            ->join('users', 'reservations.user_id', '=', 'users.id')
+            ->select('reservations.*', 'rooms.*', 'users.*', 'reservations.status as reservation_status', 'reservations.id as reservation_id', 'rooms.status as room_status', 'users.name as client_name')
+            ->get();
+
+            return view('reservation.logs', compact('reservations'));
+        }
 
     public function destroy($id)
     {

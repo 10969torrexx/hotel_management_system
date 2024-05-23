@@ -84,4 +84,5 @@ Auth::routes();
         Route::get('reservation/pending', [ReservationsController::class, 'pending'])->name('reservationPending');
         Route::get('reservation/acceppt', [ReservationsController::class, 'accepted'])->name('reservationAccept');
         Route::get('reservation/declined', [ReservationsController::class, 'declined'])->name('reservationDecline');
+        Route::get('reservation/logs', [ReservationsController::class, 'logs'])->name('reservationLogs');
     });
