@@ -1,6 +1,18 @@
 @extends('layouts.admin-layout')
 @section('content')
 <div class="content-wrapper">
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <script>
+                toastr.error("{{  $error }}")
+            </script>
+        @endforeach
+    @endif
+    @if(Session::has('success'))
+        <script>
+            toastr.success("{{ Session::get('success') }}")
+        </script>
+    @endif
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
             <h5 class="card-header">Bordered Table</h5>
@@ -37,8 +49,8 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Accept</a>
-                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Decline</a>
+                                        <a class="dropdown-item" href="{{ route('reservationAccept', ['id' => $item->reservation_id, 'email' => $item->email, 'number' => $item->number]) }}"><i class="bx bx-edit-alt me-1"></i> Accept</a>
+                                        <a class="dropdown-item" href="{{ route('reservationDecline', ['id' => $item->reservation_id, 'email' => $item->email, 'number' => $item->number]) }}"><i class="bx bx-trash me-1"></i> Decline</a>
                                     </div>
                                 </div>
                                 </td>
