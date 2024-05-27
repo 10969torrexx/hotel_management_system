@@ -210,7 +210,7 @@
                               @guest
                               @else
                                  @if ($item->status == 0)
-                                    <a href="{{ route('reservationCreate', ['id' => $item->id]) }}" class="btn btn-primary">Reserve</a>
+                                    <a href="{{ route('reservationMake', ['id' => encrypt($item->id)]) }}" class="btn btn-primary">Reserve</a>
                                  @endif
                               @endguest
                            </div>
