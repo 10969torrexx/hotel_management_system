@@ -23,7 +23,7 @@ class ReservationsController extends Controller
         if($hasReservation){
             return redirect(route('usersHome'))->with('error', 'You have an active reservation');
         }
-        $rooms = Rooms::where('id', $request->id)
+        $rooms = Rooms::where('id', decrypt($request->id))
             ->where('status', 0)->first();
         return view('reservation.make', compact('rooms'));
     }
@@ -83,7 +83,7 @@ class ReservationsController extends Controller
             Mail::raw("Your reservation for Room #: $request->number has been ACCEPTED", function ($message) use ($email) {
                 $message->to($email)->subject('Reservatio Update');
             });
-            $reservation = Reservations::where('id', $request->id)->update([
+            $reservation = Reservations::where('id', decrypt($request->id))->update([
                 'status' => 1
             ]);
             $rooms = Rooms::where('id', $request->room_id)->update([
@@ -98,13 +98,13 @@ class ReservationsController extends Controller
             Mail::raw("Your reservation for Room #: $request->number has been DECLINED", function ($message) use ($email) {
                 $message->to($email)->subject('Reservatio Update');
             });
-            $reservation = Reservations::where('id', $request->id)->update([
+            $reservation = Reservations::where('id', decrypt($request->id))->update([
                 'status' => 2
             ]);
             $rooms = Rooms::where('id', $request->room_id)->update([
                 'status' => 0
             ]);
-            return redirect(route('reservationPending'))->with('success', 'Reservation accepted');
+            return redirect(route('reservationPending'))->with('success', 'Reservation declined');
         }
 
         public function logs()

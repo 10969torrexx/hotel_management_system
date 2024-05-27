@@ -50,13 +50,13 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{ route('reservationAccept', [
-                                            'id' => $item->reservation_id, 
+                                            'id' => encrypt($item->reservation_id), 
                                             'email' => $item->email, 
                                             'number' => $item->number, 
                                             'room_id' => $item->room_id
                                         ]) }}"><i class="bx bx-edit-alt me-1"></i> Accept</a>
                                         <a class="dropdown-item" href="{{ route('reservationDecline', [
-                                            'id' => $item->reservation_id, 
+                                            'id' => encrypt($item->reservation_id), 
                                             'email' => $item->email, 
                                             'number' => $item->number, 
                                             'room_id' => $item->room_id
