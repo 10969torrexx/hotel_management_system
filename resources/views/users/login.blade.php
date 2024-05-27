@@ -111,9 +111,10 @@
                     <label class="form-check-label" for="remember-me"> Remember Me </label>
                   </div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                   <button class="btn btn-primary d-grid w-100" type="button" id="loginbutton">Sign in</button>
                 </div>
+                <div class="p-1 text-danger" id="message_attempt"></div>
               </form>
 
               <p class="text-center">
@@ -199,8 +200,9 @@
                 });
             }
         }
+        var loginAttempts = 5
         $('#loginbutton').click(function(){
-             var email = $('#email').val();
+            var email = $('#email').val();
             var password = $('#password').val();
             $.ajaxSetup({
                 headers: {  'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content') }
@@ -225,16 +227,32 @@
                       }, 2000);
                     }
                     if (response.status == 300) {
-                        $('#loginbutton').html("Login").prop("disabled", false);
-                        toastr.error(response.message, 'Error!');
-                       
+                      $('#loginbutton').html("Login").prop("disabled", false);
+                      toastr.error(response.message, 'Error!');
+                      loginAttempts--;
+                      if (loginAttempts > 0) {
+                        console.log("Remaining login attempts: " + loginAttempts);
+                        $('#message_attempt').html("Remaining login attempts: " + loginAttempts);
+                      } else {
+                        console.log("No remaining login attempts. Please try again later.");
+                        $('#loginbutton').prop("disabled", true); // Disable the login button
+                      }
                     }
                 },
                 error:function(xhr, status, error){
-                    toastr.error(xhr.responseJSON.message, 'Error!');
-                    setTimeout(() => {
-                      $('#loginbutton').html("Login").prop("disabled", false);
-                    }, 2000);
+                  toastr.error(xhr.responseJSON.message, 'Error!');
+                  var countdown = 60;
+                  var intervalId = setInterval(function() {
+                      if(countdown <= 0) {
+                          clearInterval(intervalId);
+                          loginAttempts = 5;
+                          $('#message_attempt').html("");
+                          $('#loginbutton').html("Login").prop("disabled", false);
+                      } else {
+                          $('#loginbutton').html("Retry in " + countdown + " seconds").prop("disabled", true);
+                          countdown--;
+                      }
+                  }, 1000);
                 }
             });
         });
