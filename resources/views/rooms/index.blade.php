@@ -16,6 +16,11 @@
                         toastr.success("{{ Session::get('success') }}")
                     </script>
                 @endif
+                @if(Session::has('error'))
+                    <script>
+                        toastr.error("{{ Session::get('error') }}")
+                    </script>
+                @endif
                 <div class="card-body">
                     <form action="{{ route('roomsStore') }}" method="post" enctype="multipart/form-data" id="roomForm">@csrf
                         <input type="text" class="form-control d-none" hidden name="id" id="id">
@@ -110,8 +115,8 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                            <a class="dropdown-item" id="editbutton" href="javascript:void(0);" data-id="{{ $item->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <a class="dropdown-item" href="{{ route('roomsDelete', ['id' => $item->id]) }}"><i class="bx bx-trash me-1"></i> Delete</a>
+                                            <a class="dropdown-item" id="editbutton" href="javascript:void(0);" data-id="{{ encrypt($item->id ) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                            <a class="dropdown-item" href="{{ route('roomsDelete', ['id' => encrypt($item->id)]) }}"><i class="bx bx-trash me-1"></i> Delete</a>
                                             </div>
                                         </div>
                                     </th>

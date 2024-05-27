@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rooms;
+use App\Models\Reservations;
 
 class RoomsController extends Controller
 {
@@ -52,7 +53,7 @@ class RoomsController extends Controller
 
     public function show(Request $request)
     {
-        $room = Rooms::where('id', $request->id)->first();
+        $room = Rooms::where('id', decrypt($request->id))->first();
         return response()->json([
             'status' => 200,
             'data' => $room
@@ -67,6 +68,12 @@ class RoomsController extends Controller
             'type' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric']
         ]);
+
+        $ifRoomReserved = Reservations::where('room_id', $request->id)->first();
+        if($ifRoomReserved)
+        {
+            return redirect(route('roomsIndex'))->with('error', 'Room cannot be updated because it is reserved');
+        }
 
         if($request->hasFile('img'))
         {
@@ -99,7 +106,12 @@ class RoomsController extends Controller
 
     public function destroy($id)
     {
-        $room = Rooms::where('id', $id)->delete();
+        $ifRoomReserved = Reservations::where('room_id', decrypt($id))->first();
+        if($ifRoomReserved)
+        {
+            return redirect(route('roomsIndex'))->with('error', 'Room cannot be deleted because it is reserved');
+        }
+        $room = Rooms::where('id', decrypt($id))->delete();
         return redirect(route('roomsIndex'))->with('success', 'Room deleted successfully');
     }
 }
