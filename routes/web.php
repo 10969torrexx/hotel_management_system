@@ -36,7 +36,7 @@ Auth::routes();
 /**
  * TODO: creating throttle or rate limetter
  */
-    Route::middleware(['throttle:5,1'])->group(function () {
+    Route::middleware(['throttle:4,1'])->group(function () {
         Route::post('/email/verify', [EmailController::class, 'verify'])->name('emailVerify');
         Route::post('/login', [UsersController::class, 'confirmLogin'])->name('usersLoginConfirm');
     });
