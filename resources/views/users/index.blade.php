@@ -150,6 +150,34 @@
             <span class="sr-only">Next</span>
             </a>
          </div>
+         <div class="booking_ocline">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-5">
+                     <div class="book_room">
+                        <h1>Book a Room Online</h1>
+                        <form class="book_now" action="" method="POST"> @csrf
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <span>Check in</span>
+                                 <img class="date_cua" src="/images/date.png">
+                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="checkin">
+                              </div>
+                              <div class="col-md-12">
+                                 <span>Check out</span>
+                                 <img class="date_cua" src="/images/date.png">
+                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="checkout">
+                              </div>
+                              <div class="col-md-12">
+                                 <button class="book_btn">Book Now</button>
+                              </div>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
       </section>
       <!-- end banner -->
       <!-- about -->
