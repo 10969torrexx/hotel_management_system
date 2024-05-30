@@ -62,6 +62,11 @@ class ReservationsController extends Controller
                 ->get();
             return view('reservation.reservation', compact('reservations'));
         }
+
+        public function find(Request $request)
+        {
+            return view('reservation.find');
+        }
     /**
      * TODO: these page is accessible only to the admin
      */

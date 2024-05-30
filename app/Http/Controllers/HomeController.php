@@ -20,6 +20,14 @@ class HomeController extends Controller
 
     public function home()
     {
+        $isBookNowClicked = session('bookNowClicked');
+        $checkIn = session('checkIn');
+        $checkOut = session('checkOut');
+
+        if($isBookNowClicked){
+            dd($isBookNowClicked, $checkIn, $checkOut);
+        }
+      
         $rooms = Rooms::get();
         return view('users.index', compact('rooms'));
     }

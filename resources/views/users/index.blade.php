@@ -104,6 +104,7 @@
                                        <a class="dropdown-item" href="{{ route('usersLogin') }}">Login</a>
                                        <a class="dropdown-item" href="{{ route('usersRegister') }}">Register</a>
                                     @else
+                                       <a class="dropdown-item" href="#">Find Rooms</a>
                                        <a class="dropdown-item" href="{{ route('reservationMy') }}">My Reservations</a>
                                        <a class="dropdown-item" href="{{ route('logout') }}"
                                           onclick="event.preventDefault();
@@ -175,7 +176,7 @@
                               </div>
                               <div class="col-md-12 mt-3">
                                  @guest
-                                    <a href="{{ route('usersLogin') }}" class="book_btn text-center">Book Now</a>
+                                    <a href="javascript:void(0)" class="book_btn text-center" id="bookNowLink">Book Now</a>
                                  @else
                                     <button class="book_btn">Book Now</button>
                                  @endguest
@@ -482,5 +483,19 @@
       <!-- sidebar -->
       <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="/js/custom.js"></script>
+      <script>
+         $(document).ready(function(){
+            $('#bookNowLink').click(function(e) {
+               e.preventDefault();
+               var checkin = $('input[name="checkin"]').val();
+               var checkout = $('input[name="checkout"]').val();
+               sessionStorage.setItem('checkin', checkin);
+               sessionStorage.setItem('checkout', checkout);
+               sessionStorage.setItem('bookNowClicked', 'true');
+
+               window.location.href = "{{ route('usersLogin') }}";
+            });
+         });
+      </script>
    </body>
 </html>
