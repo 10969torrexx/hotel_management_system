@@ -34,6 +34,13 @@
       <!-- Include Toastr JS -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
    </head>
+   <style>
+      .reserve-date{
+         background-color: transparent;
+         color: white;
+         border: 1px solid white;
+      }
+   </style>
    <!-- body -->
    <body class="main-layout">
       <!-- header -->
@@ -155,21 +162,23 @@
                <div class="row">
                   <div class="col-md-5">
                      <div class="book_room">
-                        <h1>Book a Room Online</h1>
-                        <form class="book_now" action="" method="POST"> @csrf
+                        <h1>Find Room</h1>
+                        <form class="book_now" action="{{ route('usersFindRooms') }}" method="POST"> @csrf
                            <div class="row">
                               <div class="col-md-12">
                                  <span>Check in</span>
-                                 <img class="date_cua" src="/images/date.png">
-                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="checkin">
+                                 <input class="form-control reserve-date" placeholder="dd/mm/yyyy" type="date" name="checkin" min="{{ date('Y-m-d') }}">
                               </div>
                               <div class="col-md-12">
                                  <span>Check out</span>
-                                 <img class="date_cua" src="/images/date.png">
-                                 <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="checkout">
+                                 <input class="form-control reserve-date" placeholder="dd/mm/yyyy" type="date" name="checkout" min="{{ date('Y-m-d') }}">
                               </div>
-                              <div class="col-md-12">
-                                 <button class="book_btn">Book Now</button>
+                              <div class="col-md-12 mt-3">
+                                 @guest
+                                    <a href="{{ route('usersLogin') }}" class="book_btn text-center">Book Now</a>
+                                 @else
+                                    <button class="book_btn">Book Now</button>
+                                 @endguest
                               </div>
                            </div>
                         </form>
