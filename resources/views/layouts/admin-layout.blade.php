@@ -95,7 +95,7 @@
                 <ul class="menu-sub">
                     <li class="menu-item">
                         <a href="{{ route('roomsIndex') }}" class="menu-link">
-                            <div data-i18n="Without menu">View</div>
+                            <div data-i18n="Without menu">Manage</div>
                         </a>
                     </li>
                 </ul>

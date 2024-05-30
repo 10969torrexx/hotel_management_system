@@ -19,6 +19,6 @@ class UserMiddleware
         if(Auth::check() && Auth::user()->role == 'user'){
             return $next($request);
         }
-        abort(404);
+        return redirect(route('usersLogin'));
     }
 }

@@ -82,7 +82,7 @@
                 <div class="g_id_signin form-control" data-type="standard"></div>
               </div>
 
-              <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST"> @csrf
+              <form id="formAuthentication" class="mb-3" action="#" method="POST">
                 <div class="mb-3">
                   <label for="email" class="form-label">Email or Username</label>
                   <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>

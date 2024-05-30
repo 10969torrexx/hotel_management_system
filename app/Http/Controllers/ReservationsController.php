@@ -11,54 +11,57 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationsController extends Controller
 {
-    public function index()
-    {
-        $rooms = Rooms::all();
-        return view('rooms.index', compact('rooms'));
-    }
+    /**
+     * TODO: these page is accessible only to the user
+     */
 
-    public function make(Request $request)
-    {
-        $hasReservation = Reservations::where('user_id', Auth::user()->id)->whereAny(['status'], [0, 1,2])->first();
-        if($hasReservation){
-            return redirect(route('usersHome'))->with('error', 'You have an active reservation');
+        public function index()
+        {
+            $rooms = Rooms::all();
+            return view('rooms.index', compact('rooms'));
         }
-        $rooms = Rooms::where('id', decrypt($request->id))
-            ->where('status', 0)->first();
-        return view('reservation.make', compact('rooms'));
-    }
-
-    public function makeReservation(Request $request) 
-    {
-        $this->validate($request, [
-            'id' => 'required',
-            'check_in' => 'required',
-            'check_out' => 'required'
-        ]);
-
-        $reservation = Reservations::create([
-            'room_id' => $request->id,
-            'user_id' => Auth::user()->id,
-            'check_in' => $request->check_in,
-            'check_out' => $request->check_out
-        ]);
-
-        $rooms = Rooms::where('id', $request->id)->update([
-            'status' => 1
-        ]);
-
-        return redirect(route('usersHome'))->with('success', 'Reservation made successfully');
-    }
-
-    public function myReservations()
-    {
-        $reservations = Reservations::where('user_id', Auth::user()->id)
-            ->join('rooms', 'reservations.room_id', '=', 'rooms.id')
-            ->select('reservations.*', 'rooms.*', 'reservations.status as reservation_status', 'rooms.status as room_status')
-            ->get();
-        return view('reservation.reservation', compact('reservations'));
-    }
-
+    
+        public function make(Request $request)
+        {
+            $hasReservation = Reservations::where('user_id', Auth::user()->id)->whereAny(['status'], [0, 1,2])->first();
+            if($hasReservation){
+                return redirect(route('usersHome'))->with('error', 'You have an active reservation');
+            }
+            $rooms = Rooms::where('id', decrypt($request->id))
+                ->where('status', 0)->first();
+            return view('reservation.make', compact('rooms'));
+        }
+    
+        public function makeReservation(Request $request) 
+        {
+            $this->validate($request, [
+                'id' => 'required',
+                'check_in' => 'required',
+                'check_out' => 'required'
+            ]);
+    
+            $reservation = Reservations::create([
+                'room_id' => $request->id,
+                'user_id' => Auth::user()->id,
+                'check_in' => $request->check_in,
+                'check_out' => $request->check_out
+            ]);
+    
+            $rooms = Rooms::where('id', $request->id)->update([
+                'status' => 1
+            ]);
+    
+            return redirect(route('usersHome'))->with('success', 'Reservation made successfully');
+        }
+    
+        public function myReservations()
+        {
+            $reservations = Reservations::where('user_id', Auth::user()->id)
+                ->join('rooms', 'reservations.room_id', '=', 'rooms.id')
+                ->select('reservations.*', 'rooms.*', 'reservations.status as reservation_status', 'rooms.status as room_status')
+                ->get();
+            return view('reservation.reservation', compact('reservations'));
+        }
     /**
      * TODO: these page is accessible only to the admin
      */
@@ -117,8 +120,5 @@ class ReservationsController extends Controller
             return view('reservation.logs', compact('reservations'));
         }
 
-    public function destroy($id)
-    {
-       
-    }
+    
 }
