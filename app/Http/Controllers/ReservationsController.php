@@ -65,6 +65,9 @@ class ReservationsController extends Controller
 
         public function find(Request $request)
         {
+            session()->forget('bookNowClicked');
+            session()->forget('checkIn');
+            session()->forget('checkOut');
             return view('reservation.find');
         }
     /**

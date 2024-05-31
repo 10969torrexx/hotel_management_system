@@ -60,7 +60,7 @@ Auth::routes();
         Route::post('reservation/make', [ReservationsController::class, 'makeReservation'])->name('reservationMake');
         Route::get('reservation/my', [ReservationsController::class, 'myReservations'])->name('reservationMy');
 
-        Route::post('/find/rooms', [ReservationsController::class, 'find'])->name('usersFindRooms');
+        Route::get('/find/rooms', [ReservationsController::class, 'find'])->name('usersFindRooms');
     });
 
 /**
