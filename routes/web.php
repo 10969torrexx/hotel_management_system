@@ -9,6 +9,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\ReservationsController;
+use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
@@ -40,6 +41,7 @@ Auth::routes();
         Route::post('/email/verify', [EmailController::class, 'verify'])->name('emailVerify');
         Route::post('/login', [UsersController::class, 'confirmLogin'])->name('usersLoginConfirm');
     });
+
 /**
  * TODO: setting up the routes for the user side
  */
@@ -48,6 +50,8 @@ Auth::routes();
     Route::get('/user/register', [UsersController::class, 'register'])->name('usersRegister');
     Route::post('/user/store', [UsersController::class, 'store'])->name('usersStore');
     Route::get('/user/home', [HomeController::class, 'home'])->name('usersHome');
+
+    Route::post('/setSessionData', [SessionsController::class, 'store'])->name('sessionStore');
 
     Route::group(['middleware' => 'auth', 'user'], function () {
         Route::post('chat/send', [ChatsController::class, 'store'])->name('sendMessage');

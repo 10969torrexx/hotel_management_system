@@ -489,8 +489,8 @@
                e.preventDefault();
                var checkin = $('input[name="checkin"]').val();
                var checkout = $('input[name="checkout"]').val();
-               sessionStorage.setItem('checkin', checkin);
-               sessionStorage.setItem('checkout', checkout);
+               sessionStorage.setItem('checkIn', checkin);
+               sessionStorage.setItem('checkOut', checkout);
                sessionStorage.setItem('bookNowClicked', 'true');
 
                window.location.href = "{{ route('usersLogin') }}";
