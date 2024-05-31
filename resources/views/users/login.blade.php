@@ -153,109 +153,142 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src = "https://accounts.google.com/gsi/client" async defer></script>
     <script>
-        function decodeJwtResponse(token){
-            let base64url = token.split('.')[1];
-            let base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
-            let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) { 
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
-        }
-    
-        window.onSignIn = googleUser =>{
-            var user = decodeJwtResponse(googleUser.credential);
-            if(user){
-                $.ajaxSetup({
-                    headers: {  'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content') }
-                });
-                $.ajax({
-                    url: `{{ route('googleSignIn') }}`,
-                    method: 'POST',
-                    data: {
-                        email: user.email,
-                        role: 'user',
-                        name: user.name,
-                        picture: user.picture
-                    },
-                    beforeSend: function(){
-                        $('#btnLogin').html("REDIRECTING...").prop("disabled", true);
-                    },
-                    success:function(response){
-                        if(response.status == 200) {
-                          var redirectTo = response.account.role == 'admin' ? "{{ route('adminHome') }}" : "{{ route('usersHome') }}";
-                          toastr.success(`${response.message}`, 'Success!');
-                          $('#btnLogin').html("Login").prop("disabled", false);
-                          setTimeout(() => {
-                            window.location.href = redirectTo;
-                          }, 2000);
-                        }
-                        if (response.status == 300) {
-                            $('#btnLogin').html("Login").prop("disabled", false);
-                            toastr.error(response.message, 'Error!');
-                        }
-                    },
-                    error:function(xhr, status, error){
-                        alert(xhr.responseJSON.message);
-                    }
-                });
-            }
-        }
-        var loginAttempts = 5
-        $('#loginbutton').click(function(){
-            var email = $('#email').val();
-            var password = $('#password').val();
+      function decodeJwtResponse(token){
+          let base64url = token.split('.')[1];
+          let base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
+          let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) { 
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          return JSON.parse(jsonPayload);
+      }
+  
+      window.onSignIn = googleUser =>{
+        var user = decodeJwtResponse(googleUser.credential);
+        if(user){
             $.ajaxSetup({
                 headers: {  'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content') }
             });
             $.ajax({
-                url: `{{ route('usersLoginConfirm') }}`,
+                url: `{{ route('googleSignIn') }}`,
                 method: 'POST',
                 data: {
-                    email: email,
-                    password: password
+                    email: user.email,
+                    role: 'user',
+                    name: user.name,
+                    picture: user.picture
                 },
                 beforeSend: function(){
-                    $('#loginbutton').html("REDIRECTING...").prop("disabled", true);
+                    $('#btnLogin').html("REDIRECTING...").prop("disabled", true);
                 },
                 success:function(response){
                     if(response.status == 200) {
                       var redirectTo = response.account.role == 'admin' ? "{{ route('adminHome') }}" : "{{ route('usersHome') }}";
                       toastr.success(`${response.message}`, 'Success!');
-                      $('#loginbutton').html("Login").prop("disabled", false);
+                      $('#btnLogin').html("Login").prop("disabled", false);
+                      setSessionData();
                       setTimeout(() => {
                         window.location.href = redirectTo;
                       }, 2000);
                     }
                     if (response.status == 300) {
-                      $('#loginbutton').html("Login").prop("disabled", false);
-                      toastr.error(response.message, 'Error!');
-                      loginAttempts--;
-                      if (loginAttempts > 0) {
-                        console.log("Remaining login attempts: " + loginAttempts);
-                        $('#message_attempt').html("Remaining login attempts: " + loginAttempts);
-                      } else {
-                        console.log("No remaining login attempts. Please try again later.");
-                        $('#loginbutton').prop("disabled", true); // Disable the login button
-                      }
+                        $('#btnLogin').html("Login").prop("disabled", false);
+                        toastr.error(response.message, 'Error!');
                     }
                 },
                 error:function(xhr, status, error){
-                  toastr.error(xhr.responseJSON.message, 'Error!');
-                  var countdown = 60;
-                  var intervalId = setInterval(function() {
-                      if(countdown <= 0) {
-                          clearInterval(intervalId);
-                          loginAttempts = 5;
-                          $('#message_attempt').html("");
-                          $('#loginbutton').html("Login").prop("disabled", false);
-                      } else {
-                          $('#loginbutton').html("Retry in " + countdown + " seconds").prop("disabled", true);
-                          countdown--;
-                      }
-                  }, 1000);
+                    alert(xhr.responseJSON.message);
                 }
             });
+        }
+      }
+
+      var loginAttempts = 5
+      $('#loginbutton').click(function(){
+        var email = $('#email').val();
+        var password = $('#password').val();
+        $.ajaxSetup({
+            headers: {  'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content') }
         });
+        $.ajax({
+            url: `{{ route('usersLoginConfirm') }}`,
+            method: 'POST',
+            data: {
+                email: email,
+                password: password
+            },
+            beforeSend: function(){
+                $('#loginbutton').html("REDIRECTING...").prop("disabled", true);
+            },
+            success:function(response){
+                if(response.status == 200) {
+                  var redirectTo = response.account.role == 'admin' ? "{{ route('adminHome') }}" : "{{ route('usersHome') }}";
+                  toastr.success(`${response.message}`, 'Success!');
+                  $('#loginbutton').html("Login").prop("disabled", false);
+                  setSessionData();
+                  setTimeout(() => {
+                    window.location.href = redirectTo;
+                  }, 2000);
+                }
+                if (response.status == 300) {
+                  $('#loginbutton').html("Login").prop("disabled", false);
+                  toastr.error(response.message, 'Error!');
+                  loginAttempts--;
+                  if (loginAttempts > 0) {
+                    console.log("Remaining login attempts: " + loginAttempts);
+                    $('#message_attempt').html("Remaining login attempts: " + loginAttempts);
+                  } else {
+                    console.log("No remaining login attempts. Please try again later.");
+                    $('#loginbutton').prop("disabled", true); // Disable the login button
+                  }
+                }
+            },
+            error:function(xhr, status, error){
+              toastr.error(xhr.responseJSON.message, 'Error!');
+              var countdown = 60;
+              var intervalId = setInterval(function() {
+                  if(countdown <= 0) {
+                      clearInterval(intervalId);
+                      loginAttempts = 5;
+                      $('#message_attempt').html("");
+                      $('#loginbutton').html("Login").prop("disabled", false);
+                  } else {
+                      $('#loginbutton').html("Retry in " + countdown + " seconds").prop("disabled", true);
+                      countdown--;
+                  }
+              }, 1000);
+            }
+        });
+      });
+
+      // Set session data for the user
+      function setSessionData() {
+        var checkIn = sessionStorage.getItem('checkIn');
+        var checkOut = sessionStorage.getItem('checkOut');
+        var bookNowClicked = sessionStorage.getItem('bookNowClicked');
+
+        if (checkIn && checkOut && bookNowClicked) {
+          $.ajax({
+            url: `{{ route('sessionStore') }}`,
+            method: 'POST',
+            data: {
+              checkIn: checkIn,
+              checkOut: checkOut,
+              bookNowClicked: bookNowClicked
+            },
+            success:function(response){
+              if(response.status == 200) {
+                console.log(response.message);
+              }
+              if (response.status == 300) {
+                console.log(response.message);
+              }
+            },
+            error:function(xhr, status, error){
+              console.log(xhr.responseJSON.message);
+            }
+          });
+        }
+      }
     </script>
   </body>
 </html>
