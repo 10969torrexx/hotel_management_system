@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SessionsController extends Controller
 {
@@ -19,9 +20,9 @@ class SessionsController extends Controller
      */
     public function store(Request $request)
     {
-        session(['bookNowClicked' => $request->bookNowClicked]);
-        session(['checkIn' => $request->checkIn]);
-        session(['checkOut' => $request->checkOut]);
+        Session::put('bookNowClicked', $request->bookNowClicked);
+        Session::put('checkIn', $request->checkIn);
+        Session::put('checkOut', $request->checkOut);
         return response()->json([
             'status' => 200,
             'message' => 'Session data stored successfully'

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Rooms;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+
 class HomeController extends Controller
 {
     
@@ -20,9 +22,9 @@ class HomeController extends Controller
 
     public function home()
     {
-        $isBookNowClicked = session('bookNowClicked');
-        $checkIn = session('checkIn');
-        $checkOut = session('checkOut');
+        $isBookNowClicked = Session::get('bookNowClicked');
+        $checkIn = Session::get('checkIn');
+        $checkOut = Session::get('checkOut');
        
         if($isBookNowClicked){
             Log::info([
@@ -32,14 +34,14 @@ class HomeController extends Controller
                     'isBookNowClicked' => $isBookNowClicked
                 ],
                 'session' => [
-                    'checkIn' => session('checkIn'),
-                    'checkOut' => session('checkOut'),
-                    'bookNowClicked' => session('bookNowClicked')
+                    'checkIn' => Session::get('checkIn'),
+                    'checkOut' => Session::get('checkOut'),
+                    'bookNowClicked' => Session::get('bookNowClicked')
                 ]
             ]);
-            session()->forget('bookNowClicked');
-            session()->forget('checkIn');
-            session()->forget('checkOut');
+            Session::forget('bookNowClicked');
+            Session::forget('checkIn');
+            Session::forget('checkOut');
             return redirect(route('usersFindRooms', ['checkIn' => $checkIn, 'checkOut' => $checkOut]));
         }
       
