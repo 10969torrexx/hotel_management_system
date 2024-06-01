@@ -278,6 +278,9 @@
             success:function(response){
               if(response.status == 200) {
                 console.log(response.message);
+                sessionStorage.removeItem('checkIn');
+                sessionStorage.removeItem('checkOut');
+                sessionStorage.removeItem('bookNowClicked');
               }
               if (response.status == 300) {
                 console.log(response.message);
