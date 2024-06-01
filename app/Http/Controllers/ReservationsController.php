@@ -66,10 +66,12 @@ class ReservationsController extends Controller
 
         public function find(Request $request)
         {
+            $checkIn = $request->checkIn;
+            $checkOut = $request->checkOut;
             Session::forget('bookNowClicked');
             Session::forget('checkIn');
             Session::forget('checkOut');
-            return view('reservation.find');
+            return view('reservation.find', compact('checkIn', 'checkOut'));
         }
     /**
      * TODO: these page is accessible only to the admin

@@ -19,11 +19,11 @@
             @csrf
             <div class="mb-1">
                 <label for="">Check In</label>
-                <input class="form-control" type="date" name="check_in" required value="{{ date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
+                <input class="form-control" type="date" name="check_in" required value="{{ isset($checkIn) ? $checkIn : date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
             </div>
             <div class="mb-1">
                 <label for="">Check Out</label>
-                <input class="form-control" type="date" name="check_out" required value="{{ date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
+                <input class="form-control" type="date" name="check_out" required value="{{ isset($checkOut) ? $checkOut : date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
             </div>
             <div class="mb-1 mt-1">
                 <button type="submit" class="btn btn-primary">Find Room</button>

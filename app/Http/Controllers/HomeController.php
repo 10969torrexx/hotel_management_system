@@ -27,18 +27,6 @@ class HomeController extends Controller
         $checkOut = Session::get('checkOut');
        
         if($isBookNowClicked){
-            Log::info([
-                'variable' => [
-                    'checkIn' => $checkIn,
-                    'checkOut' => $checkOut,
-                    'isBookNowClicked' => $isBookNowClicked
-                ],
-                'session' => [
-                    'checkIn' => Session::get('checkIn'),
-                    'checkOut' => Session::get('checkOut'),
-                    'bookNowClicked' => Session::get('bookNowClicked')
-                ]
-            ]);
             Session::forget('bookNowClicked');
             Session::forget('checkIn');
             Session::forget('checkOut');
