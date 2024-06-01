@@ -7,6 +7,7 @@ use App\Models\Reservations;
 use App\Models\Rooms;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
 class ReservationsController extends Controller
@@ -65,10 +66,12 @@ class ReservationsController extends Controller
 
         public function find(Request $request)
         {
-            session()->forget('bookNowClicked');
-            session()->forget('checkIn');
-            session()->forget('checkOut');
-            return view('reservation.find');
+            $checkIn = $request->checkIn;
+            $checkOut = $request->checkOut;
+            Session::forget('bookNowClicked');
+            Session::forget('checkIn');
+            Session::forget('checkOut');
+            return view('reservation.find', compact('checkIn', 'checkOut'));
         }
     /**
      * TODO: these page is accessible only to the admin
