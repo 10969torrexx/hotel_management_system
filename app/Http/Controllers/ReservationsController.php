@@ -66,11 +66,29 @@ class ReservationsController extends Controller
 
         public function find(Request $request)
         {
-            $checkIn = $request->checkIn;
-            $checkOut = $request->checkOut;
             Session::forget('bookNowClicked');
             Session::forget('checkIn');
             Session::forget('checkOut');
+            $isBookNowClicked = $request->isBookNowClicked;
+            $checkIn = decrypt($request->checkIn);
+            $checkOut = decrypt($request->checkOut);
+
+            $rooms = Rooms::with(['reservations' => function ($query) use ($checkIn, $checkOut) {
+                $query->where('check_in', '>', $checkOut)
+                      ->orWhere('check_out', '<', $checkIn);
+            }])
+            ->where('status', 0)
+            ->get();
+
+            dd([
+                'resut' => $rooms->toArray(),
+                'checkIn' => $checkIn,
+                'checkOut' => $checkOut
+            ]);
+
+            if (isset($isBookNowClicked) && $isBookNowClicked == 'true') {
+                
+            }
             return view('reservation.find', compact('checkIn', 'checkOut'));
         }
     /**

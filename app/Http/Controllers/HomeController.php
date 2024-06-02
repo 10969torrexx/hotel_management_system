@@ -30,7 +30,11 @@ class HomeController extends Controller
             Session::forget('bookNowClicked');
             Session::forget('checkIn');
             Session::forget('checkOut');
-            return redirect(route('usersFindRooms', ['checkIn' => $checkIn, 'checkOut' => $checkOut]));
+            return redirect(route('usersFindRooms', [
+                'checkIn' => encrypt($checkIn), 
+                'checkOut' => encrypt($checkOut),
+                'isBookNowClicked' => $isBookNowClicked
+            ]));
         }
       
         $rooms = Rooms::get();
