@@ -70,15 +70,19 @@ class ReservationsController extends Controller
             Session::forget('checkIn');
             Session::forget('checkOut');
             $isBookNowClicked = $request->isBookNowClicked;
-            $checkIn = decrypt($request->checkIn);
-            $checkOut = decrypt($request->checkOut);
+            $checkIn = date('Y-m-d', strtotime(decrypt($request->checkIn)));
+            $checkOut =  date('Y-m-d', strtotime(decrypt($request->checkOut)));
 
-            $rooms = Rooms::with(['reservations' => function ($query) use ($checkIn, $checkOut) {
-                $query->where('check_in', '>', $checkOut)
-                      ->orWhere('check_out', '<', $checkIn);
-            }])
-            ->where('status', 0)
-            ->get();
+            $rooms = Rooms::where('status', 0)
+                ->whereDoesntHave('reservations', function ($query) use ($checkIn, $checkOut) {
+                    $query->where('check_in', '<=', $checkOut)
+                        ->where('check_out', '>=', $checkIn);
+                })
+                ->with(['reservations' => function ($query) use ($checkIn, $checkOut) {
+                    $query->where('check_in', '>', $checkOut)
+                        ->orWhere('check_out', '<', $checkIn);
+                }])
+                ->get();
 
             dd([
                 'resut' => $rooms->toArray(),
