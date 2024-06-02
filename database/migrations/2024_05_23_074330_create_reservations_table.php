@@ -16,8 +16,8 @@ return new class extends Migration
             $table->integer('room_id');
             $table->integer('user_id');
             $table->integer('status')->default(0);
-            $table->datetime('check_in');
-            $table->datetime('check_out');
+            $table->date('check_in');
+            $table->date('check_out');
             $table->timestamps();
         });
     }
