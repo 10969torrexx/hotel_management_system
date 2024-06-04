@@ -24,12 +24,6 @@ class ReservationsController extends Controller
     
         public function make(Request $request)
         {
-            $hasReservation = Reservations::where('user_id', Auth::user()->id)
-            ->whereAny(['status'], [0, 1,2])
-            ->first();
-            if($hasReservation){
-                return redirect(route('usersHome'))->with('error', 'You have an active reservation');
-            }
             $rooms = Rooms::where('id', decrypt($request->id))
                 ->where('status', 0)->first();
             return view('reservation.make', compact('rooms'));
