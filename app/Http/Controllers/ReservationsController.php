@@ -73,27 +73,17 @@ class ReservationsController extends Controller
             $checkIn = date('Y-m-d', strtotime(decrypt($request->checkIn)));
             $checkOut =  date('Y-m-d', strtotime(decrypt($request->checkOut)));
 
-            $rooms = Rooms::where('status', 0)
-                ->whereDoesntHave('reservations', function ($query) use ($checkIn, $checkOut) {
-                    $query->where('check_in', '<=', $checkOut)
-                        ->where('check_out', '>=', $checkIn);
-                })
-                ->with(['reservations' => function ($query) use ($checkIn, $checkOut) {
-                    $query->where('check_in', '>', $checkOut)
-                        ->orWhere('check_out', '<', $checkIn);
-                }])
-                ->get();
-
-            dd([
-                'resut' => $rooms->toArray(),
-                'checkIn' => $checkIn,
-                'checkOut' => $checkOut
-            ]);
+            $rooms = Rooms::whereIn('status', [0, 1])
+            ->whereDoesntHave('reservations', function ($query) use ($checkIn, $checkOut) {
+                $query->whereBetween('check_in', [$checkOut, $checkIn])
+                    ->whereBetween('check_out', [$checkOut, $checkIn]);
+            })
+            ->get();
 
             if (isset($isBookNowClicked) && $isBookNowClicked == 'true') {
                 
             }
-            return view('reservation.find', compact('checkIn', 'checkOut'));
+            return view('reservation.find', compact('checkIn', 'checkOut', 'rooms'));
         }
     /**
      * TODO: these page is accessible only to the admin
