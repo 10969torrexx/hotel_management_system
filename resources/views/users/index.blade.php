@@ -56,6 +56,11 @@
                toastr.success("{{ Session::get('success') }}")
          </script>
       @endif
+      @if(Session::has('error'))
+      <script>
+            toastr.error("{{ Session::get('error') }}")
+      </script>
+   @endif
       <header>
          <!-- header inner -->
          <div class="header sticky-top">

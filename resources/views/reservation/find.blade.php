@@ -1,36 +1,36 @@
 @extends('layouts.user-layout')
 @section('content')
-<div class="card mb-4 shadow-sm">
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
+    <div class="card mb-4 shadow-sm">
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <script>
+                    toastr.error("{{  $error }}")
+                </script>
+            @endforeach
+        @endif
+        @if(Session::has('success'))
             <script>
-                toastr.error("{{  $error }}")
+                toastr.success("{{ Session::get('success') }}")
             </script>
-        @endforeach
-    @endif
-    @if(Session::has('success'))
-        <script>
-            toastr.success("{{ Session::get('success') }}")
-        </script>
-    @endif
-    <h5 class="card-header">Find Room</h5>
-    <div class="card-body">
-        <form action="" method="post">
-            @csrf
-            <div class="mb-1">
-                <label for="">Check In</label>
-                <input class="form-control" type="date" name="check_in" required value="{{ isset($checkIn) ? $checkIn : date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
-            </div>
-            <div class="mb-1">
-                <label for="">Check Out</label>
-                <input class="form-control" type="date" name="check_out" required value="{{ isset($checkOut) ? $checkOut : date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
-            </div>
-            <div class="mb-1 mt-1">
-                <button type="submit" class="btn btn-primary">Find Room</button>
-            </div>
-        </form>
+        @endif
+        <h5 class="card-header">Find Room</h5>
+        <div class="card-body">
+            <form action="" method="post">
+                @csrf
+                <div class="mb-1">
+                    <label for="">Check In</label>
+                    <input class="form-control" type="date" name="check_in" required value="{{ isset($checkIn) ? $checkIn : date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
+                </div>
+                <div class="mb-1">
+                    <label for="">Check Out</label>
+                    <input class="form-control" type="date" name="check_out" required value="{{ isset($checkOut) ? $checkOut : date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
+                </div>
+                <div class="mb-1 mt-1">
+                    <button type="submit" class="btn btn-primary">Find Room</button>
+                </div>
+            </form>
+        </div>
     </div>
-
     @if (count($rooms) <= 0)
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -70,15 +70,7 @@
                             <td>{{ ucfirst(config('const.room_status.' . $item->status)) }}</td>
                             <td>{{ date('M, d, Y', strtotime($item->created_at)) }}</td>
                             <th>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                    <a class="dropdown-item" id="editbutton" href="javascript:void(0);" data-id="{{ encrypt($item->id ) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                    <a class="dropdown-item" href="{{ route('roomsDelete', ['id' => encrypt($item->id)]) }}"><i class="bx bx-trash me-1"></i> Delete</a>
-                                    </div>
-                                </div>
+                                <a href="{{ route('reservationMake', ['id' => encrypt($item->id)]) }}" class="btn btn-primary">Reserve</a>
                             </th>
                         </tr>
                     @endforeach
@@ -88,5 +80,4 @@
             </div>
         </div>
     @endif
-</div>
 @endsection
