@@ -164,15 +164,15 @@
                   <div class="col-md-5">
                      <div class="book_room">
                         <h1>Find Room</h1>
-                        <form class="book_now" action="{{ route('usersFindRooms') }}" method="POST"> @csrf
+                        <form class="book_now" action="{{ route('usersFindRooms') }}" method="GET"> @csrf
                            <div class="row">
                               <div class="col-md-12">
                                  <span>Check in</span>
-                                 <input class="form-control reserve-date" placeholder="dd/mm/yyyy" type="date" name="checkin" min="{{ date('Y-m-d') }}">
+                                 <input class="form-control reserve-date" placeholder="dd/mm/yyyy" type="date" name="checkin" min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d') }}">
                               </div>
                               <div class="col-md-12">
                                  <span>Check out</span>
-                                 <input class="form-control reserve-date" placeholder="dd/mm/yyyy" type="date" name="checkout" min="{{ date('Y-m-d') }}">
+                                 <input class="form-control reserve-date" placeholder="dd/mm/yyyy" type="date" name="checkout" min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d', strtotime('+1 day')) }}">
                               </div>
                               <div class="col-md-12 mt-3">
                                  @guest
