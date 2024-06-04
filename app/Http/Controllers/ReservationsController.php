@@ -73,7 +73,7 @@ class ReservationsController extends Controller
             $checkIn = date('Y-m-d', strtotime(decrypt($request->checkIn)));
             $checkOut =  date('Y-m-d', strtotime(decrypt($request->checkOut)));
 
-            $rooms = Rooms::whereIn('status', [0, 1])
+            $rooms = Rooms::where('status', 0)
             ->whereDoesntHave('reservations', function ($query) use ($checkIn, $checkOut) {
                 $query->whereBetween('check_in', [$checkOut, $checkIn])
                     ->whereBetween('check_out', [$checkOut, $checkIn]);
