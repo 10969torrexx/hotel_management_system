@@ -36,6 +36,8 @@ class ReservationsController extends Controller
                 'check_in' => 'required',
                 'check_out' => 'required'
             ]);
+
+            dd($request->all());
     
             $reservation = Reservations::create([
                 'room_id' => $request->id,
@@ -62,22 +64,27 @@ class ReservationsController extends Controller
 
         public function find(Request $request)
         {
-            Session::forget('bookNowClicked');
-            Session::forget('checkIn');
-            Session::forget('checkOut');
-            $isBookNowClicked = isset($request->isBookNowClicked) ? $request->isBookNowClicked : null;
-            $checkIn = date('Y-m-d', strtotime($isBookNowClicked != null && $isBookNowClicked == 'true' ? decrypt($request->checkIn) : $request->checkIn));
-            $checkOut =  date('Y-m-d', strtotime($isBookNowClicked != null && $isBookNowClicked == 'true' ? decrypt($request->checkOut) : $request->checkOut));
+            if (count($request->all()) > 0) {
+                Session::forget('bookNowClicked');
+                Session::forget('checkIn');
+                Session::forget('checkOut');
+                $isBookNowClicked = isset($request->isBookNowClicked) ? $request->isBookNowClicked : null;
+                $checkIn = date('Y-m-d', strtotime($isBookNowClicked != null && $isBookNowClicked == 'true' ? decrypt($request->checkIn) : $request->checkIn));
+                $checkOut =  date('Y-m-d', strtotime($isBookNowClicked != null && $isBookNowClicked == 'true' ? decrypt($request->checkOut) : $request->checkOut));
 
-            $rooms = Rooms::where('status', 0)
-            ->whereDoesntHave('reservations', function($query) use ($checkIn, $checkOut) {
-                $query->where('check_in', '>=', $checkIn)
-                    ->where('check_out', '<=', $checkOut);
-            })
-            ->with('reservations')
-            ->get();
-        
-            return view('reservation.find', compact('checkIn', 'checkOut', 'rooms'));
+                $rooms = Rooms::where('status', 0)
+                ->whereDoesntHave('reservations', function($query) use ($checkIn, $checkOut) {
+                    $query->where('check_in', '>=', $checkIn)
+                        ->where('check_out', '<=', $checkOut);
+                })
+                ->with('reservations')
+                ->get();
+            
+                return view('reservation.find', compact('checkIn', 'checkOut', 'rooms'));
+            } else {
+                $rooms = Rooms::where('status', 0)->get();
+                return view('reservation.find', compact('rooms'));
+            }
         }
     /**
      * TODO: these page is accessible only to the admin

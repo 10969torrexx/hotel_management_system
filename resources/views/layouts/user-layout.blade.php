@@ -92,7 +92,7 @@
                                             <a class="dropdown-item" href="{{ route('usersLogin') }}">Login</a>
                                             <a class="dropdown-item" href="{{ route('usersRegister') }}">Register</a>
                                         @else
-                                            <a class="dropdown-item" href="#">Find Rooms</a>
+                                            <a class="dropdown-item" href="{{ route('usersFindRooms') }}">Find Rooms</a>
                                             <a class="dropdown-item" href="{{ route('reservationMy') }}">My Reservations</a>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
