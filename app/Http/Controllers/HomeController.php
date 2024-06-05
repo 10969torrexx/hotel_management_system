@@ -7,6 +7,7 @@ use App\Models\Rooms;
 use App\Models\Reservations;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -38,7 +39,13 @@ class HomeController extends Controller
             ]));
         }
 
-        dd(Reservations::setCheckOut());
+        $reservations = Reservations::where('status', 1)
+        ->where('user_id', Auth::user()->id)
+        ->where('check_out', date('Y-m-d'))
+        ->first();
+
+
+        dd(Reservations::getCheckOut(), $reservations, date('Y-m-d'));
       
         $rooms = Rooms::get();
         return view('users.index', compact('rooms'));

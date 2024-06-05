@@ -28,7 +28,7 @@ class Reservations extends Model
         })->exists();
     }
 
-    public static function setCheckOut()
+    public static function getCheckOut()
     {
         return self::where('status', 1)
         ->where('user_id', Auth::user()->id)
