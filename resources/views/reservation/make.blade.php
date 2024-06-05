@@ -42,7 +42,7 @@
                 </div>
                 <form action="{{ route('reservationMake') }}" method="post">
                     @csrf
-                    <input type="text" name="id" value="{{ $rooms->id }}" class="form-control">
+                    <input type="text" name="id" value="{{ $rooms->id }}" class="form-control d-none">
                     <div class="mb-1">
                         <label for="">Check In</label>
                         <input class="form-control" type="date" name="check_in" required value="{{ date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
