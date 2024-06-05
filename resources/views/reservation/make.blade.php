@@ -13,6 +13,11 @@
             toastr.success("{{ Session::get('success') }}")
         </script>
     @endif
+    @if(Session::has('error'))
+        <script>
+            toastr.error("{{ Session::get('error') }}")
+        </script>
+    @endif
     <h5 class="card-header">Make Reservation</h5>
     <div class="card-body">
         <div class="row justify-content-center">
