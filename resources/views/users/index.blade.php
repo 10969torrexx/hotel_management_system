@@ -173,11 +173,11 @@
                            <div class="row">
                               <div class="col-md-12">
                                  <span>Check in</span>
-                                 <input class="form-control reserve-date" placeholder="dd/mm/yyyy" type="date" name="checkin" min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d') }}">
+                                 <input class="form-control reserve-date" placeholder="dd/mm/yyyy" type="date" name="checkIn" min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d') }}">
                               </div>
                               <div class="col-md-12">
                                  <span>Check out</span>
-                                 <input class="form-control reserve-date" placeholder="dd/mm/yyyy" type="date" name="checkout" min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d', strtotime('+1 day')) }}">
+                                 <input class="form-control reserve-date" placeholder="dd/mm/yyyy" type="date" name="checkOut" min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d', strtotime('+1 day')) }}">
                               </div>
                               <div class="col-md-12 mt-3">
                                  @guest
