@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rooms;
+use App\Models\Reservations;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
@@ -36,6 +37,8 @@ class HomeController extends Controller
                 'isBookNowClicked' => $isBookNowClicked
             ]));
         }
+
+        dd(Reservations::setCheckOut());
       
         $rooms = Rooms::get();
         return view('users.index', compact('rooms'));
