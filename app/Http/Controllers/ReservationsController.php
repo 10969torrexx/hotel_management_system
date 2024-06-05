@@ -37,7 +37,10 @@ class ReservationsController extends Controller
                 'check_out' => 'required'
             ]);
 
-            dd($request->all());
+            $checkReservation = Reservations::isAvailable($request->id, $request->check_in, $request->check_out);
+            if ($checkReservation == true) {
+                return redirect()->back()->with('error', 'This room is already reserved for the selected dates');
+            }
     
             $reservation = Reservations::create([
                 'room_id' => $request->id,
