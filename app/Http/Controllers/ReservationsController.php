@@ -66,8 +66,8 @@ class ReservationsController extends Controller
             Session::forget('checkIn');
             Session::forget('checkOut');
             $isBookNowClicked = isset($request->isBookNowClicked) ? $request->isBookNowClicked : null;
-            $checkIn = date('Y-m-d', strtotime($isBookNowClicked != null  && $isBookNowClicked == 'true') ? decrypt($request->checkIn) : $request->checkIn);
-            $checkOut =  date('Y-m-d', strtotime($isBookNowClicked != null && $isBookNowClicked == 'true') ? decrypt($request->checkOut) : $request->checkOut);
+            $checkIn = date('Y-m-d', strtotime($isBookNowClicked != null && $isBookNowClicked == 'true' ? decrypt($request->checkIn) : $request->checkIn));
+            $checkOut =  date('Y-m-d', strtotime($isBookNowClicked != null && $isBookNowClicked == 'true' ? decrypt($request->checkOut) : $request->checkOut));
 
             $rooms = Rooms::where('status', 0)
             ->whereDoesntHave('reservations', function ($query) use ($checkIn, $checkOut) {
