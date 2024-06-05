@@ -15,20 +15,21 @@
         @endif
         <h5 class="card-header">Find Room</h5>
         <div class="card-body">
-            <form action="" method="post">
-                @csrf
-                <div class="mb-1">
-                    <label for="">Check In</label>
-                    <input class="form-control" type="date" name="check_in" required value="{{ isset($checkIn) ? $checkIn : date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
+            <form action="{{ route('usersFindRooms') }}" method="GET"> @csrf
+                <div class="row">
+                   <div class="col-md-12">
+                      <span>Check in</span>
+                      <input class="form-control" placeholder="dd/mm/yyyy" type="date" name="checkIn" min="{{ date('Y-m-d') }}" value="{{ isset($checkIn) ? $checkIn : date('Y-m-d') }}">
+                   </div>
+                   <div class="col-md-12">
+                      <span>Check out</span>
+                      <input class="form-control" placeholder="dd/mm/yyyy" type="date" name="checkOut" min="{{ date('Y-m-d') }}" value="{{ isset($checkOut) ? $checkOut : date('Y-m-d') }}">
+                   </div>
+                   <div class="col-md-12 mt-3">
+                     <button type="submit" class="btn btn-primary">Find Room</button>
+                   </div>
                 </div>
-                <div class="mb-1">
-                    <label for="">Check Out</label>
-                    <input class="form-control" type="date" name="check_out" required value="{{ isset($checkOut) ? $checkOut : date('Y-m-d') }}" id="html5-date-input" min="{{ date('Y-m-d') }}">
-                </div>
-                <div class="mb-1 mt-1">
-                    <button type="submit" class="btn btn-primary">Find Room</button>
-                </div>
-            </form>
+             </form>
         </div>
     </div>
     @if (count($rooms) <= 0)
