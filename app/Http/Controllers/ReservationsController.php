@@ -70,12 +70,13 @@ class ReservationsController extends Controller
             $checkOut =  date('Y-m-d', strtotime($isBookNowClicked != null && $isBookNowClicked == 'true' ? decrypt($request->checkOut) : $request->checkOut));
 
             $rooms = Rooms::where('status', 0)
-            ->whereDoesntHave('reservations', function ($query) use ($checkIn, $checkOut) {
-                $query->whereBetween('check_in', [$checkOut, $checkIn])
-                ->whereBetween('check_out', [$checkOut, $checkIn]);
+            ->whereDoesntHave('reservations', function($query) use ($checkIn, $checkOut) {
+                $query->where('check_in', '>=', $checkIn)
+                    ->where('check_out', '<=', $checkOut);
             })
+            ->with('reservations')
             ->get();
-
+        
             return view('reservation.find', compact('checkIn', 'checkOut', 'rooms'));
         }
     /**
