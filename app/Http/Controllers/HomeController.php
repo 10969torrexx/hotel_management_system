@@ -39,13 +39,16 @@ class HomeController extends Controller
             ]));
         }
 
-        $reservations = Reservations::where('status', 1)
-        ->where('user_id', Auth::user()->id)
-        ->where('check_out', date('Y-m-d'))
-        ->first();
+        if (Auth::check()) {
+            $reservations = Reservations::where('status', 1)
+            ->where('user_id', Auth::user()->id)
+            ->where('check_out', date('Y-m-d'))
+            ->first();
 
+            dd(Reservations::getCheckOut(), $reservations, date('Y-m-d'));
+        }
 
-        dd(Reservations::getCheckOut(), $reservations, date('Y-m-d'));
+       
       
         $rooms = Rooms::get();
         return view('users.index', compact('rooms'));
