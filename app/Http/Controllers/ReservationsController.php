@@ -89,13 +89,14 @@ class ReservationsController extends Controller
             }
         }
         
-        public function getAccepted()
+        public function forReservationExtend()
         {
             $reservation = Reservations::getAccepted(Auth::user()->id);
             if ($reservation) {
                 return response()->json([
                     'status' => 200,
-                    'reservation' => $reservation
+                    'message' => 'You have reservations that checkouts today!',
+                    'data' => $reservation
                 ]);
             }
 
