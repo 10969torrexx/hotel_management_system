@@ -169,4 +169,22 @@
       <script src="/js/custom.js"></script>
    </body>
    
+   <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: `{{ route('forReservationExtend') }}`,
+            type: 'GET',
+            success: function(response){
+                if(response.status == 200){
+                    alert(`${response.message}`);
+                } else {
+                    console.log(response.message);
+                }
+            }
+        });
+   </script>
 </html>
