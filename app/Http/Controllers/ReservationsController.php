@@ -15,7 +15,6 @@ class ReservationsController extends Controller
     /**
      * TODO: these page is accessible only to the user
      */
-
         public function index()
         {
             $rooms = Rooms::all();
@@ -88,6 +87,22 @@ class ReservationsController extends Controller
                 $rooms = Rooms::where('status', 0)->get();
                 return view('reservation.find', compact('rooms'));
             }
+        }
+        
+        public function getAccepted()
+        {
+            $reservation = Reservations::getAccepted(Auth::user()->id);
+            if ($reservation) {
+                return response()->json([
+                    'status' => 200,
+                    'reservation' => $reservation
+                ]);
+            }
+
+            return response()->json([
+                'status' => 300,
+                'message' => 'No accepted reservation found'
+            ]);
         }
     /**
      * TODO: these page is accessible only to the admin
