@@ -32,7 +32,7 @@ class Reservations extends Model
     {
         return self::where('status', 1)
         ->where('user_id', $user_id)
-        ->where('check_out', date('Y-m-d'))
+        ->where('check_out', '<=', date('Y-m-d'))
         ->first();
     }
 }

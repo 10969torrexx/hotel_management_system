@@ -39,10 +39,6 @@ class HomeController extends Controller
             ]));
         }
 
-        if (Auth::check()) {
-            dd(Reservations::getAccepted(Auth::user()->id), date('Y-m-d'));
-        }
-
         $rooms = Rooms::get();
         return view('users.index', compact('rooms'));
     }
