@@ -39,15 +39,6 @@ class HomeController extends Controller
             ]));
         }
 
-        //TODO: check if user has reservation that is accepted and check out date is today
-        if (Auth::check()) {
-            $reservation = Reservations::getAccepted(Auth::user()->id);
-            if ($reservation) {
-                $room = $reservation->room;
-                return view('users.index', compact('room'));
-            }
-        }
-
         $rooms = Rooms::get();
         return view('users.index', compact('rooms'));
     }
