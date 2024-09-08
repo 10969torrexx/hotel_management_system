@@ -168,32 +168,6 @@
       <!-- sidebar -->
       <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="/js/custom.js"></script>
+      @include('scripts')
    </body>
-   
-   <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: `{{ route('forReservationExtend') }}`,
-            type: 'GET',
-            success: function(response){
-                if(response.status == 200){
-                    $('#extendReservationModal').modal('show');
-                    $('#headerMessage').text(response.message);
-                    //TODO append extend and checkout reservation routes
-                    let extendRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 0]) }}`;
-                    let checkoutRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 1]) }}`;
-                    $('#reservationExtend').attr('href', extendRoute);
-                    $('#reservationCheckout').attr('href', checkoutRoute);
-                    
-                    //TODO append reservation details
-                    $('#roomImage').attr('src', `../${response.data.file_path}`);
-                    console.log(response.data.file_path)
-                }
-            }
-         });
-   </script>
 </html>
