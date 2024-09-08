@@ -180,10 +180,16 @@
             url: `{{ route('forReservationExtend') }}`,
             type: 'GET',
             success: function(response){
-               if(response.status == 200){
-                  $('#extendReservationModal').modal('show');
-                  $('#headerMessage').text(response.message);
-               }
+                if(response.status == 200){
+                    $('#extendReservationModal').modal('show');
+                    $('#headerMessage').text(response.message);
+                    //TODO append extend and checkout reservation routes
+                    let extendRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 0]) }}`;
+                    let checkoutRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 1]) }}`;
+                    $('#reservationExtend').attr('href', extendRoute);
+                    $('#reservationCheckout').attr('href', checkoutRoute);
+                    console.log(response.data.id)
+                }
             }
          });
    </script>
