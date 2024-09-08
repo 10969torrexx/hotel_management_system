@@ -44,6 +44,7 @@
    </head>
    <!-- body -->
    <body class="main-layout">
+        @include('modals') 
       <!-- header -->
         <header>
             <div class="header sticky-top shadow-sm">
@@ -179,12 +180,11 @@
             url: `{{ route('forReservationExtend') }}`,
             type: 'GET',
             success: function(response){
-                if(response.status == 200){
-                    alert(`${response.message}`);
-                } else {
-                    console.log(response.message);
-                }
+               if(response.status == 200){
+                  $('#extendReservationModal').modal('show');
+                  $('#headerMessage').text(response.message);
+               }
             }
-        });
+         });
    </script>
 </html>

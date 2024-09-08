@@ -43,7 +43,7 @@
    </style>
    <!-- body -->
    <body class="main-layout">
-      @include('modals')
+      @include('modals') 
       <!-- header -->
       @if ($errors->any())
         @foreach ($errors->all() as $error)
