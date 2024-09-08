@@ -1,25 +1,4 @@
 <script>
-    $(document).ready(function(){
-        $(document).on('click', '#bookNowLink', function(e) {
-            e.preventDefault();
-            var checkin = $('input[name="checkin"]').val();
-            var checkout = $('input[name="checkout"]').val();
-            sessionStorage.setItem('checkIn', checkin);
-            sessionStorage.setItem('checkOut', checkout);
-            sessionStorage.setItem('bookNowClicked', 'true');
-
-            window.location.href = "{{ route('usersLogin') }}";
-        });
-
-        $(document).on('change', '#checkOutDate', function(e) {
-            let newCheckOutDate = $(this).val();
-            let currentDate = new Date().toISOString().split('T')[0];
-            if (newCheckOutDate >= currentDate) {
-                $('#reservationExtend').attr('disabled', 'disabled');
-            } 
-        });
-    });
-
     $.ajaxSetup({
        headers: {
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -51,8 +30,44 @@
        }
     });
 
-    $(document).on('click', '#reservationExtend', function(e) {
-        e.preventDefault();
-        alert('clicked')
+    function extendReservation() {
+        $.ajax({
+            url: extendRoute,
+            type: 'GET',
+            success: function(response){
+                if(response.status == 200){
+                    $('#extendReservationModal').modal('hide');
+                    toastr.success(response.message);
+                }
+            }
+        });
+    }
+
+    
+    $(document).ready(function(){
+        $(document).on('click', '#bookNowLink', function(e) {
+            e.preventDefault();
+            var checkin = $('input[name="checkin"]').val();
+            var checkout = $('input[name="checkout"]').val();
+            sessionStorage.setItem('checkIn', checkin);
+            sessionStorage.setItem('checkOut', checkout);
+            sessionStorage.setItem('bookNowClicked', 'true');
+
+            window.location.href = "{{ route('usersLogin') }}";
+        });
+
+        $(document).on('change', '#checkOutDate', function(e) {
+            let newCheckOutDate = $(this).val();
+            let currentDate = new Date().toISOString().split('T')[0];
+            if (newCheckOutDate >= currentDate) {
+                $('#reservationExtend').removeAttr('disabled');
+            } 
+        });
+
+        $(document).on('click', '#reservationExtend', function(e) {
+            e.preventDefault();
+            
+        });
     });
+
  </script>

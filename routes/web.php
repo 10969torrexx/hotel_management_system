@@ -62,7 +62,7 @@ Auth::routes();
         Route::get('/reservation/extend/', [ReservationsController::class, 'reservationExtend'])->name('reservationExtendOrCheckout');
 
         Route::get('/find/rooms', [ReservationsController::class, 'find'])->name('usersFindRooms');
-        Route::get('/reservations/extend-or-checkout', [ReservationsController::class, 'forReservationExtend'])->name('forReservationExtend');
+        Route::get('/reservations/extendt', [ReservationsController::class, 'forReservationExtend'])->name('forReservationExtend');
     });
 
 /**
