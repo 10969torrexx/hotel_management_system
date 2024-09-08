@@ -40,9 +40,15 @@ class Reservations extends Model
 
     public static function getAccepted($user_id)
     {
-        return self::where('status', 1)
-        ->where('user_id', $user_id)
-        ->where('check_out', '<=', date('Y-m-d'))
+        return self::where('reservations.status', 1)
+        ->where('reservations.user_id', $user_id)
+        ->where('reservations.check_out', '<=', date('Y-m-d'))
+        ->join('rooms', 'reservations.room_id', '=', 'rooms.id')
+        ->select('reservations.*', 'rooms.*') // Select columns from both tables
         ->first();
+    }
+
+    public static function getReservation($id) {
+        
     }
 }

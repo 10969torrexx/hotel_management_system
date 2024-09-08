@@ -9,8 +9,8 @@
             <h3 id="headerMessage"></h3>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Extend Reservation?</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Confirm Checkout</button>
+            <a href="#" class="btn btn-primary" id="reservationExtend" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Extend Reservation?</a>
+            <a href="#" class="btn btn-danger" id="reservationCheckout" data-bs-dismiss="modal">Confirm Checkout</a>
         </div>
       </div>
     </div>

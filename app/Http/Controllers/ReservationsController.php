@@ -127,7 +127,7 @@ class ReservationsController extends Controller
         {
             $email = $request->email;
             Mail::raw("Your reservation for Room #: $request->number has been ACCEPTED", function ($message) use ($email) {
-                $message->to($email)->subject('Reservatio Update');
+                $message->to($email)->subject('Reservation Update');
             });
             $reservation = Reservations::where('id', decrypt($request->id))->update([
                 'status' => 1
@@ -142,7 +142,7 @@ class ReservationsController extends Controller
         {
             $email = $request->email;
             Mail::raw("Your reservation for Room #: $request->number has been DECLINED", function ($message) use ($email) {
-                $message->to($email)->subject('Reservatio Update');
+                $message->to($email)->subject('Reservation Update');
             });
             $reservation = Reservations::where('id', decrypt($request->id))->update([
                 'status' => 2
@@ -163,5 +163,9 @@ class ReservationsController extends Controller
             return view('reservation.logs', compact('reservations'));
         }
 
-    
+        public function reservationExtend(Request $request)
+        {
+            $reservation = Reservations::getAccepted(Auth::user()->id);
+            
+        }
 }

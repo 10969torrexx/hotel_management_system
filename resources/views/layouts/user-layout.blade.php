@@ -44,6 +44,7 @@
    </head>
    <!-- body -->
    <body class="main-layout">
+        @include('modals') 
       <!-- header -->
         <header>
             <div class="header sticky-top shadow-sm">
@@ -180,11 +181,16 @@
             type: 'GET',
             success: function(response){
                 if(response.status == 200){
-                    alert(`${response.message}`);
-                } else {
-                    console.log(response.message);
+                    $('#extendReservationModal').modal('show');
+                    $('#headerMessage').text(response.message);
+                    //TODO append extend and checkout reservation routes
+                    let extendRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 0]) }}`;
+                    let checkoutRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 1]) }}`;
+                    $('#reservationExtend').attr('href', extendRoute);
+                    $('#reservationCheckout').attr('href', checkoutRoute);
+                    console.log(response.data.id)
                 }
             }
-        });
+         });
    </script>
 </html>
