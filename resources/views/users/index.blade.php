@@ -518,11 +518,23 @@
                   //TODO append extend and checkout reservation routes
                   let extendRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 0]) }}`;
                   let checkoutRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 1]) }}`;
-                  $('#reservationExtend').attr('href', extendRoute);
-                  $('#reservationCheckout').attr('href', checkoutRoute);
+                  
+                  //TODO append reservation details
+                  $('#roomImage').attr('src', `../${response.data.file_path}`);
+                  
+                  $('#reservationDetails').html(`
+                     <h3 class="mb-3">Room Number: ${response.data.number}</h3>
+                     <p class="mb-3"><strong>Price:</strong> $${response.data.price}</p>
+                     <p class="mb-3"><strong>Description:</strong> ${response.data.description}</p>
+
+                     <p class="mb-3"><strong>Check-in:</strong> ${response.data.check_in}</p>
+                     <p class="mb-3"><strong>Check-out:</strong> <input class="form-control" type="date" id="checkOutDate" value="${response.data.check_out}" /></p>
+                  `);
                }
             }
          });
+
+         
       </script>
    </body>
 </html>
