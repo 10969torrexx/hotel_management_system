@@ -16,8 +16,10 @@ return new class extends Migration
             $table->integer('room_id');
             $table->integer('user_id');
             $table->integer('status')->default(0);
+            $table->integer('extended_flg')->default(0);
             $table->date('check_in');
             $table->date('check_out');
+            $table->date('extended_date')->nullable();
             $table->timestamps();
         });
     }
