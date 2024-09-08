@@ -43,6 +43,7 @@
    </style>
    <!-- body -->
    <body class="main-layout">
+      @include('modals')
       <!-- header -->
       @if ($errors->any())
         @foreach ($errors->all() as $error)
@@ -512,7 +513,8 @@
             type: 'GET',
             success: function(response){
                if(response.status == 200){
-                  alert(`${response.message}`);
+                  $('#extendReservationModal').modal('show');
+                  $('#headerMessage').text(response.message);
                }
             }
          });
