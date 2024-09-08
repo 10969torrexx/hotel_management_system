@@ -9,7 +9,17 @@ use Illuminate\Support\Facades\Auth;
 class Reservations extends Model
 {
     use HasFactory;
-    protected $fillable = ['room_id', 'user_id', 'check_in', 'check_out', 'total_person', 'total_price', 'status'];
+    protected $fillable = [
+        'room_id', 
+        'user_id', 
+        'check_in', 
+        'check_out', 
+        'total_person', 
+        'total_price', 
+        'status',
+        'extended_flg',
+        'extended_date',
+    ];
 
     public function room()
     {
