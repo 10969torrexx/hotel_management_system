@@ -188,7 +188,10 @@
                     let checkoutRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 1]) }}`;
                     $('#reservationExtend').attr('href', extendRoute);
                     $('#reservationCheckout').attr('href', checkoutRoute);
-                    console.log(response.data.id)
+                    
+                    //TODO append reservation details
+                    $('#roomImage').attr('src', `../${response.data.file_path}`);
+                    console.log(response.data.file_path)
                 }
             }
          });
