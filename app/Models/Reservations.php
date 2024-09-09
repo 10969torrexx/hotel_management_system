@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class Reservations extends Model
 {
@@ -28,14 +29,16 @@ class Reservations extends Model
 
     public static function isAvailable($room_id, $check_in, $check_out)
     {
-        return !self::where('room_id', $room_id)
-        ->where('status', 0)
+        if (!self::exists()) {
+            return false;
+        }
+        //TODO: Proceed with the operation if data exists
+        return self::where('room_id', $room_id)
         ->where(function ($query) use ($check_in, $check_out) {
-            $query->where(function ($query) use ($check_in, $check_out) {
-                $query->where('check_in', '<', $check_out)
-                        ->where('check_out', '>', $check_in);
-            });
-        })->exists();
+            $query->where('check_in', '<', $check_out)
+                  ->where('check_out', '>', $check_in);
+        })
+        ->exists();
     }
 
     public static function getAccepted($user_id)

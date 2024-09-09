@@ -253,9 +253,7 @@
                               <p class="{{ $item->status == 0 ? 'text-warning' : 'text-danger' }}">{{ config('const.room_status.'. $item->status) }}</p>
                               @guest
                               @else
-                                 @if ($item->status == 0)
-                                    <a href="{{ route('reservationMake', ['id' => encrypt($item->id)]) }}" class="btn btn-primary">Reserve</a>
-                                 @endif
+                                 <a href="{{ route('reservationMake', ['id' => encrypt($item->id)]) }}" class="btn btn-primary">Reserve</a>
                               @endguest
                            </div>
                         </div>
@@ -489,52 +487,6 @@
       <!-- sidebar -->
       <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="/js/custom.js"></script>
-      <script>
-         $(document).ready(function(){
-            $('#bookNowLink').click(function(e) {
-               e.preventDefault();
-               var checkin = $('input[name="checkin"]').val();
-               var checkout = $('input[name="checkout"]').val();
-               sessionStorage.setItem('checkIn', checkin);
-               sessionStorage.setItem('checkOut', checkout);
-               sessionStorage.setItem('bookNowClicked', 'true');
-
-               window.location.href = "{{ route('usersLogin') }}";
-            });
-         });
-
-         $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-         });
-         $.ajax({
-            url: `{{ route('forReservationExtend') }}`,
-            type: 'GET',
-            success: function(response){
-               if(response.status == 200){
-                  $('#extendReservationModal').modal('show');
-                  $('#headerMessage').text(response.message);
-                  //TODO append extend and checkout reservation routes
-                  let extendRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 0]) }}`;
-                  let checkoutRoute = `{{ route('reservationExtendOrCheckout', ['id' => '${response.data.id}', 'extendOrCheckout' => 1]) }}`;
-                  
-                  //TODO append reservation details
-                  $('#roomImage').attr('src', `../${response.data.file_path}`);
-                  
-                  $('#reservationDetails').html(`
-                     <h3 class="mb-3">Room Number: ${response.data.number}</h3>
-                     <p class="mb-3"><strong>Price:</strong> $${response.data.price}</p>
-                     <p class="mb-3"><strong>Description:</strong> ${response.data.description}</p>
-
-                     <p class="mb-3"><strong>Check-in:</strong> ${response.data.check_in}</p>
-                     <p class="mb-3"><strong>Check-out:</strong> <input class="form-control" type="date" id="checkOutDate" value="${response.data.check_out}" /></p>
-                  `);
-               }
-            }
-         });
-
-         
-      </script>
+      @include('scripts') 
    </body>
 </html>
