@@ -51,7 +51,13 @@ class Reservations extends Model
         ->first();
     }
 
-    public static function getReservation($id) {
-        
+    public static function extendCheckout($id, $check_out)
+    {
+        return self::where('id', $id)
+        ->update([
+            'check_out' => $check_out,
+            'extended_flg' => 1,
+            'extended_date' => date('Y-m-d')
+        ]);
     }
 }

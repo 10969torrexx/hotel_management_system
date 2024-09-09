@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class ReservationsController extends Controller
 {
@@ -164,7 +165,10 @@ class ReservationsController extends Controller
 
         public function extendReservation(Request $request)
         {
-            $reservation = Reservations::getAccepted(Auth::user()->id);
-            
+            $reservation = Reservations::extendCheckout($request->id, Carbon::parse($request->checkOutDate));
+            return response()->json([
+                'status' => 200,
+                'message' => 'Reservation extended successfully'
+            ]);
         }
 }
