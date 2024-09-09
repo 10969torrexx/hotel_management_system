@@ -59,10 +59,10 @@ Auth::routes();
         Route::get('reservation/make', [ReservationsController::class, 'make'])->name('reservationMake');
         Route::post('reservation/make', [ReservationsController::class, 'makeReservation'])->name('reservationMake');
         Route::get('reservation/my', [ReservationsController::class, 'myReservations'])->name('reservationMy');
-        Route::get('/reservation/extend/', [ReservationsController::class, 'reservationExtend'])->name('reservationExtendOrCheckout');
+        Route::post('/reservation/extend/', [ReservationsController::class, 'extendReservation'])->name('extendReservation');
 
         Route::get('/find/rooms', [ReservationsController::class, 'find'])->name('usersFindRooms');
-        Route::get('/reservations/extendt', [ReservationsController::class, 'forReservationExtend'])->name('forReservationExtend');
+        Route::get('/reservations/extend', [ReservationsController::class, 'forReservationExtend'])->name('forReservationExtend');
     });
 
 /**

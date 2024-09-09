@@ -8,7 +8,7 @@ use App\Models\Rooms;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use Carbon\Carbon;
 
 class ReservationsController extends Controller
 {
@@ -23,8 +23,7 @@ class ReservationsController extends Controller
     
         public function make(Request $request)
         {
-            $rooms = Rooms::where('id', decrypt($request->id))
-                ->where('status', 0)->first();
+            $rooms = Rooms::where('id', decrypt($request->id))->first();
             return view('reservation.make', compact('rooms'));
         }
     
@@ -35,8 +34,8 @@ class ReservationsController extends Controller
                 'check_in' => 'required',
                 'check_out' => 'required'
             ]);
-
-            $checkReservation = Reservations::isAvailable($request->id, $request->check_in, $request->check_out);
+            
+            $checkReservation = Reservations::isAvailable($request->id, Carbon::parse($request->check_in), Carbon::parse($request->check_out));
             if ($checkReservation == true) {
                 return redirect()->back()->with('error', 'This room is already reserved for the selected dates');
             }
@@ -163,7 +162,7 @@ class ReservationsController extends Controller
             return view('reservation.logs', compact('reservations'));
         }
 
-        public function reservationExtend(Request $request)
+        public function extendReservation(Request $request)
         {
             $reservation = Reservations::getAccepted(Auth::user()->id);
             
