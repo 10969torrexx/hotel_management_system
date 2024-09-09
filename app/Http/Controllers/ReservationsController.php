@@ -171,4 +171,20 @@ class ReservationsController extends Controller
                 'message' => 'Reservation extended successfully'
             ]);
         }
+
+        public function confirmCheckout(Request $request)
+        {
+            Log::info('Checkout request: '. $request->id);
+            $reservation = Reservations::confirmCheckout($request->id);
+            if ($reservation) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Reservation checkout confirmed successfully'
+                ]);
+            } 
+            return response()->json([
+                'status' => 400,
+                'message' => 'Failed to confirm checkout'
+            ]);
+        }
 }

@@ -27,6 +27,7 @@
                 <p class="mb-3"><strong>Check-out:</strong> <input class="form-control"data-reservation-id="${response.data.id}" type="date" id="checkOutDate" value="${response.data.check_out}" /></p>
             `);
             g_checkInDate = response.data.check_in;
+            g_reservationId = response.data.id;
           }
        }
     });
@@ -49,6 +50,24 @@
         });
     }
 
+    function confirmCheckout( id, checkOutDate, checkInDate) {
+        $.ajax({
+            url: "{{ route('confirmCheckout') }}",
+            type: 'POST',
+            data: {
+                id: id
+            },
+            success: function(response){
+                if(response.status == 200){
+                    $('#extendReservationModal').modal('hide');
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            }
+        });
+    }
+
     $(document).ready(function(){
         $(document).on('click', '#bookNowLink', function(e) {
             e.preventDefault();
@@ -63,11 +82,11 @@
 
         $(document).on('change', '#checkOutDate', function(e) {
             let newCheckOutDate = $(this).val();
-            let roomId = $(this).data('reservation-id');
+            let reservationId = $(this).data('reservation-id');
             let currentDate = new Date().toISOString().split('T')[0];
             if (newCheckOutDate >= currentDate) {
                 g_newCheckOutDate = newCheckOutDate;
-                g_reservationId = roomId;
+                g_reservationId = reservationId;
                 $('#reservationExtend').removeAttr('disabled');
             } 
         });
@@ -75,6 +94,11 @@
         $(document).on('click', '#reservationExtend', function(e) {
             e.preventDefault();
             extendReservation(g_reservationId, g_newCheckOutDate, g_checkInDate);
+        });
+
+        $(document).on('click', '#reservationCheckout', function(e) {
+            e.preventDefault();
+            confirmCheckout(g_reservationId);
         });
     });
 

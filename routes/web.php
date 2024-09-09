@@ -60,6 +60,7 @@ Auth::routes();
         Route::post('reservation/make', [ReservationsController::class, 'makeReservation'])->name('reservationMake');
         Route::get('reservation/my', [ReservationsController::class, 'myReservations'])->name('reservationMy');
         Route::post('/reservation/extend/', [ReservationsController::class, 'extendReservation'])->name('extendReservation');
+        Route::post('/reservation/checkout/', [ReservationsController::class, 'confirmCheckout'])->name('confirmCheckout');
 
         Route::get('/find/rooms', [ReservationsController::class, 'find'])->name('usersFindRooms');
         Route::get('/reservations/extend', [ReservationsController::class, 'forReservationExtend'])->name('forReservationExtend');
@@ -80,7 +81,7 @@ Auth::routes();
         Route::post('/rooms/store', [RoomsController::class, 'store'])->name('roomsStore');
         Route::get('/rooms/delete/{id}', [RoomsController::class, 'destroy'])->name('roomsDelete');
         Route::post('/rooms/update', [RoomsController::class, 'update'])->name('roomsUpdate');
-        Route::get('/rooms/show}', [RoomsController::class, 'show'])->name('roomsShow');
+        Route::get('/rooms/show', [RoomsController::class, 'show'])->name('roomsShow');
 
         Route::get('chat/get/', [ChatsController::class, 'get'])->name('getMessage');
         Route::get('chat/index', [ChatsController::class, 'index'])->name('chatIndex');

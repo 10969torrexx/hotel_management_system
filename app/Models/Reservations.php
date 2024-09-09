@@ -60,4 +60,11 @@ class Reservations extends Model
             'extended_date' => date('Y-m-d')
         ]);
     }
+
+    public static function confirmCheckout($id) {
+        return self::where('id', $id)
+        ->update([
+            'status' => 3
+        ]);
+    }
 }
